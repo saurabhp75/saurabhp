@@ -43,22 +43,27 @@ Short-lived tokens usually have a lifetime of about an hour or two, while long-l
 
 2. App Access Tokens
    To generate an app access token, you need to make a Graph API call. Therefore, this API call should only be made using server-side code. This token never expires(?)
+   ```
    curl -X GET "https://graph.facebook.com/oauth/access_token
    ?client_id=your-app-id
    &client_secret=your-app-secret
    &redirect_uri=your-redirect-url
    &grant_type=client_credentials"
+   ```
 
 There is another method to make calls to the Graph API that doesn't require using a generated app access token. You can just pass your app id and app secret as the access_token parameter when you make a call:
 
-curl -X GET "https://graph.facebook.com/your-endpoint?key=value&access_token=your-app_id|your-app_secret"
+`curl -X GET "https://graph.facebook.com/your-endpoint?key=value&access_token=your-app_id|your-app_secret"`
 
 3. Page access token
    With a page access token you can make API calls on behalf of a Page. For example, you could post a status update to a Page (rather than on the user's timeline) or read Page Insights data.
 
 First get a user access token with “manage_pages’ permission. Then get page acces token using following graph API. The API return json object with page access token along with other information.
+
+```
 GET /me/accounts HTTP/1.1
 Host: graph.facebook.com
+```
 
 Extending Page Access Tokens
 Apps can retrieve a page access token from Page admin users when they authenticate with the manage_pages permission. If the user access token used to retrieve this page access token is short-lived, the page access token is also short-lived. If the user access token you use to retrieve this page access token is a long-lived token, you get a long-lived page token that is good for at least 60 days.
@@ -74,26 +79,31 @@ Workflow of tokens in the app.
 
 Get a user(short lived) access token using web login :
 • Redirect to the below url for login dialog (assuming user not logged in)
+
+```
 https://www.facebook.com/v3.1/dialog/oauth?
 client_id={app-id}
 &redirect_uri={redirect-uri}
 &state={state-param}
+```
 
     • redirect-uri will be called with
-      https://www.domain.com/login?state="{st=state123abc,ds=123456789}"
+      `https://www.domain.com/login?state="{st=state123abc,ds=123456789}"`
     with following optional parameters :
-    response_type : (code|token|code%20token|granted_scopes)
+    response_type : `(code|token|code%20token|granted_scopes)`
     scope : comma seperated list of permissions
-    code :  Response data is included as URL parameters and contains code parameter (an 	encrypted string unique to each login request). This is the default behavior if this 	parameter is not specified. It's most useful when your server will be handling the token.
+    code :  Response data is included as URL parameters and contains code parameter (an encrypted string unique to each login request). This is the default behavior if this 	parameter is not specified. It's most useful when your server will be handling the token.
 
-    When code is received, it has to be exchanged for an access token using an endpoint. The call will 	need to be server-to-server, since it involves your app secret. (Your app secret should never end up in 	client code.). To get an access token, make an HTTP GET request to the following OAuth endpoint:
+    When code is received, it has to be exchanged for an access token using an endpoint. The call will 	need to be server-to-server, since it involves your app secret. (Your app secret should never end up in client code.). To get an access token, make an HTTP GET request to the following OAuth endpoint:
 
-    GET https://graph.facebook.com/v3.1/oauth/access_token?
+    `GET https://graph.facebook.com/v3.1/oauth/access_token?`
 
+```
 client_id={app-id}
 &redirect_uri={redirect-uri}
 &client_secret={app-secret}
 &code={code-parameter}
+```
 
     The response you will receive from this endpoint will be returned in JSON format and, if successful, is:
 
@@ -107,9 +117,11 @@ client_id={app-id}
 ```
 
     When token is received, it needs to be verified. You should make an API call to an inspection endpoint 	that will indicate who the token was generated for and by which app. As this API call requires using an 	app access token, never make this call from a client. Instead make this call from a server where you 	can 	securely store your app secret. You can perform automated checks on these tokens using a Graph API 	endpoint:
+    ```
     GET graph.facebook.com/debug_token?
      	input_token={token-to-inspect}
      	&access_token={app-token-or-admin-token}
+         ```
 
     The response of the API call is a JSON array containing data about the inspected token. For example:
 
@@ -143,8 +155,11 @@ client_id={app-id}
 error_reason=user_denied
 &error=access_denied
 &error_description=Permissions+error.
+```
 
 Convert short lived user access token to long term user token
+
+```
 GET /oauth/access_token?
  grant_type=fb_exchange_token&
  client_id={app-id}&

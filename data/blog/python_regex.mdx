@@ -74,7 +74,7 @@ Another repeating metacharacter is +, which matches one or more times.
 
 Another repeating qualifier, the question mark character, ?, matches either once or zero times; you can think of it as marking something as being **optional**.
 
-The most complicated repeated qualifier is **{m,n}**, where m and n are **decimal integers**. This qualifier means there must be at least m repetitions, and at most n. You can omit either m or n. Omitting m is interpreted as a lower limit of 0, while omitting n results in an upper bound of infinity.
+The most complicated repeated qualifier is `{m,n}`, where m and n are **decimal integers**. This qualifier means there must be at least m repetitions, and at most n. You can omit either m or n. Omitting m is interpreted as a lower limit of 0, while omitting n results in an upper bound of infinity.
 
 ### Equivalence of Metachar sequences
 
@@ -200,7 +200,7 @@ They don’t cause the engine to advance through the string, instead, they consu
 
 ### Grouping
 
-- Groups are marked by the '(', ')' metacharacters. '(' and ')' have much the same meaning as they do in mathematical expressions; they group together the expressions contained inside them, and you can repeat the contents of a group with a repeating qualifier, such as **, +, ?, or {m,n}**. For example, **(ab)** will match zero or more repetitions of ab.
+- Groups are marked by the '(', ')' metacharacters. '(' and ')' have much the same meaning as they do in mathematical expressions; they group together the expressions contained inside them, and you can repeat the contents of a group with a repeating qualifier, such as `**`, `+`, `?`, or `{m,n}`. For example, **(ab)** will match zero or more repetitions of ab.
 - Groups indicated with '(', ')' also **capture** the starting and ending index of the text that they match; this can be retrieved by passing an argument to group(), start(), end(), and span(). Groups are numbered starting with 0. Group 0 is always present; it’s the whole RE, so match object methods all have group 0 as their default argument.
 - Subgroups are numbered from left to right, from 1 upward. Groups can be nested; to determine the number, just count the opening parenthesis characters, going from left to right.
 
@@ -255,8 +255,8 @@ For example, the following RE detects doubled words in a string.
 - (?=foo) is a **positive lookahead assertion**.
 - (?!...) is a **negative lookahead assertion**.
 - (?:foo) is a **non-capturing group** containing the subexpression foo.
-- (?P\<name>...) defines a **named group**.
-- (?P=name) is a **backreference** to a named group.
+- `(?P\<name>...)` defines a **named group**.
+- (?P=name) `is a **backreference** to a named group.
 
 **Note**: Except for the fact that you can’t retrieve the contents of what the group matched, a non-capturing group behaves exactly the same as a capturing group(named group).
 

@@ -125,13 +125,16 @@ $ nvm uninstall v10.16.2
 - It creates dist folder which contains the bundled JS files.
 - Hot module replacement. No need to reload page when the module code changes.
 - Parcel inject the newly built module which reloading the page.
+
+```
   if(module.hot) {
   module.hot.accept()
   }
+```
 
 ## Invoking parcel using npm scripts
 
-- Under scripts in package.json
+- Under scripts in `package.json`
 - "start": "parcel index.html"
 - Then do npm run start.
 - "build": parcel build index.html

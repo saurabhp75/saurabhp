@@ -58,13 +58,14 @@ summary: 'Introduction to ReactJS'
 - import statement is required for ES2015 modules
 
   .
+
 - require statement is required for CommonJS modules.
 
 ## Difference between html and JSX
 
 - Use of className instead of class.
-- Use of {} for styles and style as an object.
-- You can't use a JS object inside {} JSX, where a string is required.
+- Use of `{}` for styles and style as an object.
+- You can't use a JS object inside `{}` JSX, where a string is required.
 - Also use htmlFor in place of "for" property of label.
 
 ## Three tenets of a component:
@@ -154,7 +155,7 @@ summary: 'Introduction to ReactJS'
 
 ### Passing value via prop
 
-- in parent component add a property for eg text={varName} in the child component.
+- in parent component add a property for eg `text={varName}` in the child component.
 - in the child component use the props.text to access the passed value.
 - a react component receive only one parameter conventionally named props.
 
@@ -172,7 +173,7 @@ summary: 'Introduction to ReactJS'
 
 - Add a property for the event and define a handler within the function body of the component.
 
-- onClick={clickHandler}.
+- `onClick={clickHandler}`.
 
 ## Composition (Children props)
 
@@ -264,7 +265,7 @@ summary: 'Introduction to ReactJS'
     - Projects created using create-react-app supports it.
     - Use `import styles from '/Button.module.css'`.
     - Rename css file as Button.module.css. Acess the class as properties.
-    - Use className={styles.button}
+    - Use `className={styles.button}`
 
 ### Conditional and dynamic styles
 
@@ -314,17 +315,16 @@ summary: 'Introduction to ReactJS'
 - import ReactDOM from 'react-dom'
 
   ;
+
 - ReactDom.createPortal(container, parentElement)
 
 ### Using Refs
 
 - Refs allow us to get access to other DOM elements and work with them.
-- import React, { useState, useRef } from 'react'
-
-  ;
-- const nameInputRef = useRef();
-- &lt;input id="username" type="text" ref={nameInputRef} / &gt;
-- nameInputRef.current.value = '';
+- `import React, { useState, useRef } from 'react';`
+- `const nameInputRef = useRef();`
+- `&lt;input id="username" type="text" ref={nameInputRef} / &gt;`
+- `nameInputRef.current.value = '';`
 
 ### useState vs useRef
 

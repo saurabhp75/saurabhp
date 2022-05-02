@@ -44,14 +44,13 @@ Nested paths are created using subfolder under pages folder.
 
 ## Creating dynamic pages
 
-- [newsId].js, use square brackets.
+- `[newsId].js`, use square brackets.
 - Folder names can also have square brackets.
-- import {useRouter} from 'next/router
+- `import {useRouter} from 'next/router'`
 
-  '
 - to extract parameter from the dynamic path/file.
-  - const route=useRouter();
-  - route.query.newsId;
+  - `const route=useRouter();`
+  - `route.query.newsId;`
 
 ### Linking between pages
 
@@ -64,11 +63,12 @@ Nested paths are created using subfolder under pages folder.
 
 ## Programmatic navigation
 
-- import { useRouter } from 'next/router'
+- `import { useRouter } from 'next/router'`
 
   .
-- const route=useRouter();
-  route.push('path').
+
+- `const route=useRouter();`
+  `route.push('path')`
 
 **Note**: react hydrates the webpage with data/components. The browser show source may contain minimal html.
 
@@ -100,6 +100,7 @@ Nested paths are created using subfolder under pages folder.
 - import Head from 'next/head'
 
   .
+
 - Then add info in head of the html page.
 
 ### Deploying nextjs application
