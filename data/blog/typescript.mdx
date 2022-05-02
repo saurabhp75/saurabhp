@@ -1,0 +1,79 @@
+---
+title: 'Typescript'
+date: '2019-10-11'
+tags: ['Typescript']
+draft: false
+summary: 'Introduction to Typescript'
+---
+
+- Superset of JS.
+
+- Add static type to JS.
+
+- We can use type annotations on variables for eg, `let myAge: number;`
+
+- npx tsc filename.js
+
+- Primitive types: number, string and boolean.
+
+- Complex types: arrays and objects
+- string[], number[], boolean [] etc.
+
+```javascript
+let person: {
+  name: string,
+  age: number,
+}
+```
+
+- Array of object type.
+
+- Type inference in ts.
+
+- Using union types in ts. Use |.
+
+## Type aliases
+
+```javascript
+type person = {
+  name: string,
+  age: number,
+}
+```
+
+## function and function types.
+
+- Return type of a function can be inferred.
+
+## Syntax for function return type.
+
+- Put Return type of void in functions, when don't return anything.
+
+```javascript
+Generics:
+functionName<T>(){
+}
+
+const stringArray = insertAtBeginning<string>(['a', 'b', 'c'], 'd');
+```
+
+- So we can not just use the angle brackets to define a generic type but also to USE a generic type and explicitly set the placeholder type that should be used
+- sometimes this is required if TypeScript is not able to infer the (correct) type. We'll see this later in this course section!
+
+- npx create-react-app --template typescript
+
+## React with rs.
+
+`React.FC<{items: string []}>`
+
+## Function type in ts:
+
+```
+()=>void
+
+useState<>()
+```
+
+## ts and context API
+
+`any` type: can hold any the, if a variable is not annotated, it is of type any.
