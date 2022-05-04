@@ -1,7 +1,7 @@
 ---
-title: 'HTML'
+title: 'HTML abd CSS'
 date: '2019-10-11'
-tags: ['HTML']
+tags: ['HTML', 'CSS']
 draft: false
 summary: 'Introduction to HTML'
 ---
@@ -126,33 +126,15 @@ Properties should be seperated by semicolon;
 
 ## CSS selectors
 
-- `Universal`: \*
-- `Element selector`: Selects by element tag for eg `h1`
-- `Selector list`: seperated by comma.
-- `Id selector`: Selects by id for eg `#first-name`
-- `Class selector`: Selects by class name for eg `.name`
-- `Descendant selector`: seperated by space or dash.
-- `Direct descendant selector`: div > li: li which direct descendant of div.
-- `Adjacent selector`: h1 + p: paragraph which are immediately preceded by h1.
-- `Attribute selector`: input[type="text"]: $=(end with), \*=(contains).
-- `Psuedo classes selector`: Specifies a state
+1. **Element type(‘p’ )**: Select all paragraph elements
 
-  - `active`: clicked
-  - `checked`
-  - `first`
-  - `first-child`
-  - `hover`
-  - `not()`
-  - `nth-child()`
-  - `nth-of-type(2n)`
-  - `first-of-type`
+2. **Element ID(‘#25’)**: Select all elements with id=25
 
-- `Psuedo elements selector`: Let's you style particular part of selected elements
-  - `::after`
-  - `before`
-  - `first-letter`
-  - `first-line`
-  - `selection`
+3. **Element Class('.text')**: Select all elements with class=text
+
+4. **Descendant combinator(‘ ‘ or ‘-’)**: eg. ‘div p’ , Select all paragraph elements (descendants) under div elements
+
+5. **Child combinator(‘div>p’ )**: Select all paragraph elements whose immediate parent is div. For eg. `ul > li` will match all `<li>` elements that are nested directly inside a `<ul>` element
 
 6. Attribute(‘div[attr]’ ): Select all div elements having ‘attr’ attribute)
 
@@ -172,20 +154,80 @@ Properties should be seperated by semicolon;
 
 14. \[attr operator value I]: Adding an i (or I) before the closing bracket causes the value to be compared case-insensitively (for characters within the ASCII range).
 
-15. Adjacent sibling combinator(+): eg. ‘img + p’, matches the second element only if it immediately follows the first element, and both are children of the same parent element.
+15. **Adjacent sibling combinator(+)**: eg. ‘img + p’, matches the second element only if it **immediately** follows the first element, and both are children of the same parent element.
 
-16. General sibling combinator(~): eg. ‘img ~ p’, separates two selectors and matches the second element only if it follows the first element (though not necessarily immediately), and both are children of the same parent element.
+16. **General sibling combinator(~)**: eg. ‘img ~ p’, separates two selectors and matches the second element only if it follows the first element (though not necessarily immediately), and both are children of the same parent element.
 
 17. Psuedo classes(‘:’): pseudo-class is a keyword added to a selector that specifies a special state of the selected element(s). eg. div:hover, a:visited, :checked
 
+    - `active`: clicked
+    - `checked`
+    - `first`
+    - `first-child`
+    - `hover`
+    - `not()`
+    - `nth-child()`
+    - `nth-of-type(2n)`
+    - `first-of-type`
+
 18. Psuedo elements(‘:’ or ‘::’): pseudo-element is a keyword added to a selector that lets you style a specific part of the selected element(s). For example, ::first-line can be used to change the font of the first line of a paragraph. eg.
-    ::after, ::before, ::cue, ::first-letter, ::first-line, ::selection, ::slotted, ::backdrop, ::placeholder, ::marker, ::spelling-error, ::grammar-error
+    ::after,
+    ::before,
+    ::cue,
+    ::first-letter,
+    ::first-line,
+    ::selection,
+    ::slotted,
+    ::backdrop,
+    ::placeholder,
+    ::marker,
+    ::spelling-error,
+    ::grammar-error
 
 19. To extract attribute(‘::attr(attributename)’): Can be used to extract href from anchor tag(a).
 
-## CSS cascade
+20. **List of selectors**: Comma seperated list of selectors for eg, `div, span` will select all divs and spans.
 
-- order matters, the latest style is applied. Also while linking css files the last file has the final say.
+# XPATH
+
+**Absolute Xpath** : Begins with ‘/’  
+**Relative Xpath** : Begins with ‘//’
+
+- //input[@name='uid']: based on name attribute
+- //input[@type='text']: based on type of element
+- //label[@id='message23']: based on id of element
+- //input[@value='RESET']: based on value attribute
+- //\*[@class='barone']: based on class
+- //a[@href='http://demo.guru99.com/'] : based on href attribute
+- //img[@src='//cdn.guru99.com/images/home/java.png'] : based on source attribute
+
+- //\*[contains(@type,'sub')]
+- //\*[contains(@name,'btn')]
+- //\*[contains(@id,'message')]
+- //\*[contains(text(),'here')]
+- //\*[contains(@href,'guru99.com')]
+- //\*[@type='submit' OR @name='btnReset']
+- //input[@type='submit' AND @name='btnLogin']
+- //label[starts-with(@id,'message')]
+- //td[text()='UserID']
+
+- //label[starts-with(@id,'message')]
+- //td[text()='UserID']
+
+## xpath axes methods
+
+- //\*[@type='text']//following::input
+- //\*[text()='Enterprise Testing']//ancestor::div : selects all ancestors parents, grandparents etc
+- //\*[text()='Enterprise Testing']//ancestor::div[1] : selects first ancestor
+- //\*[@id='java_technologies']/child::li : select all child nodes
+- //\*[@id='java_technologies']/child::li[1] : selects first child node
+- //\*[@type='submit']//preceding::input
+- //\*[@type='submit']//following-sibling::input
+- //\*[@id='rt-feature']//parent::div
+- //\*[@type='password']//self::input
+- //\*[@id='rt-feature']//descendant::a
+
+**Note**: order matters, the latest style is applied. Also while linking css files the last file has the final say.
 
 ### CSS Specificity:
 
