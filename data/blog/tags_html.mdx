@@ -1,10 +1,180 @@
 ---
-title: 'HTML abd CSS'
+title: 'HTML and CSS'
 date: '2019-10-11'
 tags: ['HTML', 'CSS']
 draft: false
 summary: 'Introduction to HTML'
 ---
+
+`<!DOCTYPE html>` : Tells browser that it is an HTML 5 document.
+
+## Most common tags
+
+- header, main, footer, div, nav, section.
+
+Most elements are block level elements by default.
+
+Block level elements have:
+
+- Width of 100% of their parents.
+- They have height of 0.
+- The height grows to match the content.
+- They stack one on top of another.
+
+maring vs padding:
+
+- Margin adds empty space around the element.
+- Padding adds the background around the content of element.
+
+## margin
+
+- It can have upto 4 attributes.
+- 1 attribute: marging: all
+- 4 attributes: margin: top, right, bottom, left
+- 2 attributes: margin vertical, horizontal
+- 3 attributes: margin: top, horizontal, bottom
+
+## Padding
+
+- Controls the positioning of content inside the element.
+- Works just like margin in terms of long and short form syntax.
+
+## Centering the element.
+
+- Horizontal centering: margin: 0, auto;
+- Vertical margin set to auto means 0 margin, it may not center the element vertically.
+
+## Borders
+
+- Similar to "stroke" in vector software.
+- It has 3 properties viz, border-width, border-style, border-color.
+- Short form (order doesn't matter): border: border-width, border-style, border-color
+- If we omit color in the shorthand form, it defaults to text color.
+- We can individually control the border, for eg border-left, border-right, border-top etc.
+- border-[top|bottom|left|right]-[color|style|width].
+
+## Box model
+
+- When we specify width or height of an element, it is width of the content.
+- The totla width of the element also includes, padding, border and margin.
+
+## Flexbox
+
+- Used to arrange block elements in columns. on a page.
+- When we set display: flex, all children become columns.
+
+### Building responsive UI (CSS)
+
+## Why we should never specify the height of ablock level element:
+
+When the width of a block level element is specified, it can grow in height to accomodate the content(text?).
+But when height of a block element is specified the content can overflow the element, if the content is large.
+Also the next element will not be spaced from the overflowing content but by the conatiner element itself.
+
+## Responsive layouts
+
+- The width should be in percentage of the parent element.
+- DON'T specify the height of an element, use padding instead.
+- For padding and font size, use em.
+- For other attributes use rem.
+
+## em vs rem
+
+## em
+
+- For font-size, em is the font size of the parent element.
+- For other attributes like margin, padding, width and height etc, em is the font-size of the element itself.
+- It is used for elements internal consistency of the element like padding and font-size.
+- It can be used for button where the padding changes with the font-size.
+- You should not set font-size using em,
+
+```css
+btn {
+font-size: 2.5em; /_ 2.5 times of the font-size of the parent element._/
+margin: 2em; /_ 2 times the font-size of current element, ie 5 times the size of parent element._/
+}
+```
+
+## rem
+
+- It is the font size of the root element(html).
+- It is same for font-size and other attributes like padding, margin etc.
+- It is used for elements external consistency of the element like margin.
+
+Note: If a font-size of an element is not defined, it is searched in the parent and so on.
+
+box-sizing
+margin
+padding
+border
+background
+font-size
+font-weight
+text-align
+background
+color
+height
+width
+display
+
+background: linear-gradient(to left, #c2e59c , #64b3f4);
+
+#### CSS grid
+
+## Gradients
+
+Gradients are implemented as image, so we need to tweak the background image property.
+
+```css
+/* teo colors, start from top(default) */
+background-image: linear-gradient(red, blue);
+
+/* Start from right to left */
+background-image: linear-gradient(to left, red, blue);
+
+/* Start from bottom left to top right*/
+background-image: linear-gradient(to right top, red, blue);
+
+/* This is same as the above */
+background-image: linear-gradient(45 deg, red, blue);
+
+/* Striped pattern */
+background-image: linear-gradient(to left, red 10%, blue 10%, blue 20%, red 20%);
+
+/* Start transition from 10% height */
+background-image: linear-gradient(red 10%, blue);
+background-image: linear-gradient(red 100px, blue);
+
+/* Use four colors for transition */
+background-image: linear-gradient(red, pink, orange, blue);
+
+/*  */
+background-image: radial-gradient(red, blue);
+
+background-image: radial-gradient(red 50%, blue);
+
+/* Sharp boundaries */
+background-image: radial-gradient(red 30%, blue 30%, blue);
+
+/* Concentric circles pattern */
+background-image: radial-gradient(to left, red 10%, blue 10%, blue 20%, red 20%);
+
+/* Repeating circles */
+backrgound-image: repeating-radial-gradient(red, red 10px, blue 10px, blue 20px);
+
+/* Repeating lines */
+backrgound-image: repeating-linear-gradient(red, red 10px, blue 10px, blue 20px);
+```
+
+## Why we use HSL colors
+
+- Easier to guess just by looking at them.
+- Easy for designer to tweak colors.
+
+## Why we use box-sizing property
+
+box-sizing: border-box
+box-sizing: content-box
 
 ### Semantic markup
 
@@ -530,3 +700,148 @@ For adding images in a row, use image-fluid.
 - //\*[@id='rt-feature']//parent::div
 - //\*[@type='password']//self::input
 - //\*[@id='rt-feature']//descendant::a
+
+## CSS Grid
+
+Grid terminology
+
+- Grid Container: The element on which `display: grid` is applied.
+- `Grid Item`: The children (i.e. direct descendants) of the grid container.
+- `Grid Line`: The dividing lines (vertical and horizontal) that make up the structure of the grid.
+- `Grid Cell`: The space between two adjacent row and two adjacent column grid lines. It’s a single “unit” of the grid.
+- `Grid Track`: The space between two adjacent grid lines. You can think of them as the columns or rows of the grid.
+- `Grid Area`: The total space surrounded by four grid lines. A grid area may be composed of any number of grid cells.
+
+## Grid properties
+
+## Properties for the Parent (Grid Container)
+
+### display
+
+```css
+.container {
+  display: grid | inline-grid;
+}
+```
+
+### grid-template-columns and grid-template-rows
+
+```css
+.container {
+  grid-template-columns: ... ...;
+  /* e.g. 
+      1fr 1fr
+      minmax(10px, 1fr) 3fr
+      repeat(5, 1fr)
+      50px auto 100px 1fr
+  */
+  grid-template-rows: ... ...;
+  /* e.g. 
+      min-content 1fr min-content
+      100px 1fr max-content
+  */
+}
+
+/* you can choose to explicitly name the lines. Note the
+   bracket syntax for the line names:*/
+.container {
+  grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 50px [five] 40px [end];
+  grid-template-rows: [row1-start] 25% [row1-end] 100px [third-line] auto [last-line];
+}
+
+/* A line can have more than one name */
+.container {
+  grid-template-rows: [row1-start] 25% [row1-end row2-start] 25% [row2-end];
+}
+
+/* repeat() notation for repeating parts */
+.container {
+  grid-template-columns: repeat(3, 20px [col-start]);
+}
+
+/* This is same as above */
+.container {
+  grid-template-columns: 20px [col-start] 20px [col-start] 20px [col-start];
+}
+
+/* If multiple lines share the same name, they can be referenced
+   by their line name and count. */
+.item {
+  grid-column-start: col-start 2;
+}
+
+/* The free space is calculated after any non-flexible items*/
+.container {
+  grid-template-columns: 1fr 50px 1fr 1fr;
+}
+```
+
+### grid-template-areas
+
+/_ syntax _/
+
+```css
+/* <grid-area-name> is grid-area property of grid-item */
+.container {
+  grid-template-areas:
+    '<grid-area-name> | . | none | ...'
+    '...';
+}
+
+/* example: Each row in your declaration needs to have the 
+   same number of cells. */
+.container {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'header header header header'
+    'main main . sidebar'
+    'footer footer footer footer';
+}
+```
+
+### grid-template
+
+- A shorthand for setting grid-template-rows, grid-template-columns, and grid-template-areas in a single declaration.
+
+```css
+/*  
+  none – sets all three properties to their initial values
+  <grid-template-rows> / <grid-template-columns> – sets grid-template-columns 
+  and grid-template-rows to the specified values, respectively, and sets 
+  grid-template-areas to none
+*/
+
+.container {
+  grid-template: none | <grid-template-rows> / <grid-template-columns>;
+}
+```
+
+### column-gap/row-gap and grid-column-gap/grid-row-gap
+
+- Specifies the size of the grid lines. You can think of it like setting the width of the gutters between the columns/rows.
+- The gutters/gap are only created between the columns/rows, not on the outer edges.
+- column-gap/row-gap is the newer syntax.
+
+### grid-gap
+
+- A shorthand for row-gap and column-gap.
+
+```css
+/* syntax */
+.container {
+  /* standard */
+  gap: <grid-row-gap> <grid-column-gap>;
+
+  /* old */
+  grid-gap: <grid-row-gap> <grid-column-gap>;
+}
+
+/* Example */
+.container {
+  grid-template-columns: 100px 50px 100px;
+  grid-template-rows: 80px auto 80px;
+  gap: 15px 10px;
+}
+```
