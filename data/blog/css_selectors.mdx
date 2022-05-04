@@ -6,15 +6,15 @@ draft: false
 summary: 'Introduction to CSS Selectors'
 ---
 
-1. Element type(‘p’ ): Select all paragraph elements
+1. **Element type(‘p’ )**: Select all paragraph elements
 
-2. Element ID(‘#25’): Select all elements with id=25
+2. **Element ID(‘#25’)**: Select all elements with id=25
 
-3. Element Class('.text'): Select all elements with class=text
+3. **Element Class('.text')**: Select all elements with class=text
 
-4. Descendant combinator(‘ ‘ or ‘-’): eg. ‘div p’ , Select all paragraph elements (descendants) under div elements
+4. **Descendant combinator(‘ ‘ or ‘-’)**: eg. ‘div p’ , Select all paragraph elements (descendants) under div elements
 
-5. Child combinator(‘div>p’ ): Select all paragraph elements whose immediate parent is div
+5. **Child combinator(‘div>p’ )**: Select all paragraph elements whose immediate parent is div. For eg. `ul > li` will match all `<li>` elements that are nested directly inside a `<ul>` element
 
 6. Attribute(‘div[attr]’ ): Select all div elements having ‘attr’ attribute)
 
@@ -34,9 +34,9 @@ summary: 'Introduction to CSS Selectors'
 
 14. \[attr operator value I]: Adding an i (or I) before the closing bracket causes the value to be compared case-insensitively (for characters within the ASCII range).
 
-15. Adjacent sibling combinator(+): eg. ‘img + p’, matches the second element only if it immediately follows the first element, and both are children of the same parent element.
+15. **Adjacent sibling combinator(+)**: eg. ‘img + p’, matches the second element only if it **immediately** follows the first element, and both are children of the same parent element.
 
-16. General sibling combinator(~): eg. ‘img ~ p’, separates two selectors and matches the second element only if it follows the first element (though not necessarily immediately), and both are children of the same parent element.
+16. **General sibling combinator(~)**: eg. ‘img ~ p’, separates two selectors and matches the second element only if it follows the first element (though not necessarily immediately), and both are children of the same parent element.
 
 17. Psuedo classes(‘:’): pseudo-class is a keyword added to a selector that specifies a special state of the selected element(s). eg. div:hover, a:visited, :checked
 
@@ -44,6 +44,8 @@ summary: 'Introduction to CSS Selectors'
     ::after, ::before, ::cue, ::first-letter, ::first-line, ::selection, ::slotted, ::backdrop, ::placeholder, ::marker, ::spelling-error, ::grammar-error
 
 19. To extract attribute(‘::attr(attributename)’): Can be used to extract href from anchor tag(a).
+
+20. **List of selectors**: Comma seperated list of selectors for eg, `div, span` will select all divs and spans.
 
 # XPATH
 
