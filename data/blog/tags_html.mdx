@@ -21,7 +21,7 @@ Block level elements have:
 - The height grows to match the content.
 - They stack one on top of another.
 
-maring vs padding:
+## maring vs padding:
 
 - Margin adds empty space around the element.
 - Padding adds the background around the content of element.
@@ -58,14 +58,9 @@ maring vs padding:
 - When we specify width or height of an element, it is width of the content.
 - The totla width of the element also includes, padding, border and margin.
 
-## Flexbox
-
-- Used to arrange block elements in columns. on a page.
-- When we set display: flex, all children become columns.
-
 ### Building responsive UI (CSS)
 
-## Why we should never specify the height of ablock level element:
+## Why we should never specify the height of a block level element:
 
 When the width of a block level element is specified, it can grow in height to accomodate the content(text?).
 But when height of a block element is specified the content can overflow the element, if the content is large.
@@ -308,7 +303,7 @@ Properties should be seperated by a semicolon `;`
 ### Three ways to add CSS
 
 - inline: style ="color: red"
-- Using style tag in HTML file: `&lt;style&gt; h2 {color: red}&lt;/style&gt;`
+- Using style tag in HTML file head: `&lt;style&gt; h2 {color: red}&lt;/style&gt;`
 - CSS file:`h2 {color: red}`
 
 [**Colors site**](https://coolors.co)
@@ -557,37 +552,48 @@ Inline style and ! important.
 
 ## Google fonts
 
-- Google has lots of font families for free.
-- We can include them.
-- [Link to google fonts](https://fonts.google.com/)
+- Google has lots of font families for free. We can include them.
+- [Link to google fonts](https://fonts.google.com/).
 
 # Flexbox
 
-- `display: flex;` Need to set this in the container.
+Provides a more efficient way to lay out, align and distribute space among `items` in a `container`, even when their size is unknown and/or dynamic.
+The main idea behind the flex layout is to give the container the ability to alter its items’ width/height (and order) to best fill the available space (mostly to accommodate to all kind of display devices and screen sizes).
+
+- Used to arrange block elements in columns. on a page.
+- When we set display: flex, all children become columns.
 
 ## flex model
 
 - Concept of `main axis` and `cross axis`.
-- By default main axis goes from left to right.
-- And cross axis is top to bottom by default.
+- By default `main axis` goes from left to right and `cross axis` is top to bottom by default.
 - `flex-direction` property controls the main axis.
+- `main size` – A flex item’s width or height, whichever is in the main dimension, is the item’s main size. The flex item’s main size property is either the ‘width’ or ‘height’ property, whichever is in the main dimension.
+- `cross size` – The width or height of a flex item, whichever is in the cross dimension, is the item’s cross size. The cross size property is whichever of ‘width’ or ‘height’ that is in the cross dimension.
 
-## flexbox properties
+## flexbox container properties
 
-- `flex-direction: row/column[-reverse]`: Controls the main axis.
-- `justify-content`: flex-start, flex-end, center, space-between, space-around, space-evenly. along the main axis.
+- `display: flex|inline-flex;`: Defines a flex container.
+- flex-direction: row | row-reverse | column | column-reverse;: Controls the main axis. Default is row.
 - `flex-wrap: nowrap|wrap|wrap-reverse`: The content will not shrink to fit but wrap. Changes/controls the `cross-axis`.
-- `align-items: flex-start|flex-end|center|baseline`: Distribute elements along `cross axis`.
-- `align-content: start|center|space-between|space-around;` distribute content along cross axis, ie space between rows/columns, but only if we have multiple rows/columns.
-- `align-self: auto | flex-start | flex-end | center | baseline | stretch;` Similar to align-items but it applies to single element.
+  - nowrap (default): all flex items will be on one line.
+  - wrap(default): flex items will wrap onto multiple lines, from top to bottom.
+  - wrap-reverse: flex items will wrap onto multiple lines from bottom to top.
+- `flex-flow`: Shorthand for the `flex-direction` and `flex-wrap properties`. For eg. `flex-flow: column wrap;`.
+- `justify-content`: flex-start, flex-end, center, space-between, space-around, space-evenly. along the main axis.
+- `align-items: stretch|flex-start|flex-end|center|baseline`: Distribute elements along `cross axis`.
+- `align-content: start|center|space-between|space-around|stretch;` distribute content along cross axis, ie space between rows/columns, but only if we have multiple rows/columns and flex-wrap is enabled.
+- `row-gap, column-gap`: Controls space between flex items. It applies to spacing ONLY between the items and not outer edges. The behavior could be thought of as a minimum gutter as it only takes effect if the space between items is smaller.
+- `gap`: Shorthand for row-gap and column-gap.
 
-## Flex sizing properties
+## flexbox item properties
 
-These properties relate to individual items in a flex container and how they grow or shrink according to the available space.
-
-- `flex-grow`: Its an unitless number. Controls the amount of available space an element should takeup. Accepts a unit-less number value.
-- `flex-basis 200px`: Defines the initial size of an element before additional space is distributed.
-- `flex-shrink`: Its an unitless number. If items are larger than the container, they shrink according to flex-shrink.
+- `order`: Defines the sequence of item in container, default is as specified in source.
+- `flex-grow`: Its an unitless number. defines the ability for a flex item to grow if necessary. Default is 0.
+- `flex-basis 200px`: Defines the default/initial size of an element before additional space is distributed. The default is `auto`.
+- `flex-shrink`: Its an unitless number. Defines the ability for a flex item to shrink if necessary. Default is 1.
+- `flex`: This is the shorthand for `flex-grow`, `flex-shrink` and `flex-basis` combined. The default is `0 1 auto`, but if you set it with a single number value, like `flex: 5;`, that changes the flex-basis to 0%, so it’s like setting flex-grow: 5; flex-shrink: 1; flex-basis: 0%;.
+- `align-self: auto | flex-start | flex-end | center | baseline | stretch;` Similar to `align-items` but it applies to single item.
 
 ## Flex shorthand
 
