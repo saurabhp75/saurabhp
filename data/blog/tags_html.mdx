@@ -185,6 +185,9 @@ box-sizing: content-box
 
 - Block elements have their own row.
 - For `span` is inline and `div` is block level element.
+- `inline-block` elements have width and height.
+- `inline` elements have only margin-left, margin-right, padding-left, padding-right attributes.
+- `inline-block` has margin, padding, height, width attributes.
 
 ### Opening and closing tags
 
@@ -217,6 +220,25 @@ box-sizing: content-box
 - There are no opening and closing tags, just one tag.
 - Has `src` and `alt` attribute.
 
+### fieldset
+
+- Used in forms to group related inputs.
+- Nested legend tag provides the caption to the group.
+
+```html
+<form>
+  <fieldset>
+    <legend>Choose your favorite monster</legend>
+
+    <input type="radio" id="kraken" name="monster" />
+    <label for="kraken">Kraken</label><br />
+
+    <input type="radio" id="sasquatch" name="monster" />
+    <label for="sasquatch">Sasquatch</label><br />
+  </fieldset>
+</form>
+```
+
 ### Odd tags
 
 - `hr`: horizontal ruler.
@@ -239,12 +261,30 @@ box-sizing: content-box
 - `label` tag used to connect inputs using id attribute using `for` attribute.
 - `label` has `for` attribute which is linked to id attribute in input. It's used by screen readers.
 - `name` attribute for input tag is used to send value to the action URL. Can be seen in address bar.
-- The `value` attribute in input tag specifies the value of an input element
+- The `value` attribute in input tag specifies the value of an input element.
+
+```html
+<form method="post" action="/projects/new">
+  <p>
+    <label> Name: <input name="name" type="text" /> </label>
+  </p>
+  <p>
+    <label>
+      Description:
+      <br />
+      <textarea name="description" />
+    </label>
+  </p>
+  <p>
+    <button type="submit">Create</button>
+  </p>
+</form>
+```
 
 ### HTML form
 
 - Contains interactive controls for submitting information.
-- `action` attribute specifis where the form data should be sent.
+- `action` attribute specifies where the form data should be sent.
 - `method` attribute specifies which http method should be used.
 - When we click a button in the form, it will by default submit the form.
 - This happens because by default the type of the button in form is `submit`.
@@ -261,7 +301,9 @@ box-sizing: content-box
 
 # CSS
 
-Properties should be seperated by semicolon;
+[CSS variables ](https://kentcdodds.com/blog/super-simple-start-to-css-variables)
+
+Properties should be seperated by a semicolon `;`
 
 ### Three ways to add CSS
 

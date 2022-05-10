@@ -1,5 +1,5 @@
 const siteMetadata = {
-  title: 'Saurabh Blog',
+  title: 'Saurabh Prakash',
   author: 'Saurabh Prakash',
   headerTitle: 'Saurabh Prakash',
   description: 'My personal site for taking notes',

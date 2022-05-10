@@ -780,9 +780,11 @@ console.log(b) // 5
 - we can use default values using `=`.
 
 ```javascript
-let a, b, rest
+let a,
+  b,
+  rest
 
-// a=10, b=20
+  // a=10, b=20
 ;[a, b] = [10, 20]
 
 console.log(a)
@@ -790,7 +792,6 @@ console.log(a)
 
 console.log(b)
 // expected output: 20
-
 ;[a, b, ...rest] = [10, 20, 30, 40, 50]
 
 console.log(rest)
@@ -1827,3 +1828,21 @@ In jQuery, you don't need for loop when manipulating a selection, unlike vanilla
 - `slideUp()`: animates the height(decreasing)
 
 - `slideToggle()`:
+
+## JS built-in methods
+
+### Object.fromEntries()
+
+- Transforms a list of key-value pairs into an object.
+
+```javascript
+const entries = new Map([
+  ['foo', 'bar'],
+  ['baz', 42],
+])
+
+const obj = Object.fromEntries(entries)
+
+console.log(obj)
+// expected output: Object { foo: "bar", baz: 42 }
+```
