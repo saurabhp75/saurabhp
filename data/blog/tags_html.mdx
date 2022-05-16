@@ -98,19 +98,19 @@ margin: 2em; /_ 2 times the font-size of current element, ie 5 times the size of
 
 Note: If a font-size of an element is not defined, it is searched in the parent and so on.
 
-box-sizing
-margin
-padding
-border
-background
-font-size
-font-weight
-text-align
-background
-color
-height
-width
-display
+- box-sizing
+- margin
+- padding
+- border
+- background
+- font-size
+- font-weight
+- text-align
+- background
+- color
+- height
+- width
+- display
 
 background: linear-gradient(to left, #c2e59c , #64b3f4);
 
@@ -568,13 +568,11 @@ The main idea behind the flex layout is to give the container the ability to alt
 - Concept of `main axis` and `cross axis`.
 - By default `main axis` goes from left to right and `cross axis` is top to bottom by default.
 - `flex-direction` property controls the main axis.
-- `main size` – A flex item’s width or height, whichever is in the main dimension, is the item’s main size. The flex item’s main size property is either the ‘width’ or ‘height’ property, whichever is in the main dimension.
-- `cross size` – The width or height of a flex item, whichever is in the cross dimension, is the item’s cross size. The cross size property is whichever of ‘width’ or ‘height’ that is in the cross dimension.
 
 ## flexbox container properties
 
 - `display: flex|inline-flex;`: Defines a flex container.
-- flex-direction: row | row-reverse | column | column-reverse;: Controls the main axis. Default is row.
+- `flex-direction: row | row-reverse | column | column-reverse;`: Controls the main axis. Default is row.
 - `flex-wrap: nowrap|wrap|wrap-reverse`: The content will not shrink to fit but wrap. Changes/controls the `cross-axis`.
   - nowrap (default): all flex items will be on one line.
   - wrap(default): flex items will wrap onto multiple lines, from top to bottom.
@@ -582,7 +580,7 @@ The main idea behind the flex layout is to give the container the ability to alt
 - `flex-flow`: Shorthand for the `flex-direction` and `flex-wrap properties`. For eg. `flex-flow: column wrap;`.
 - `justify-content`: flex-start, flex-end, center, space-between, space-around, space-evenly. along the main axis.
 - `align-items: stretch|flex-start|flex-end|center|baseline`: Distribute elements along `cross axis`.
-- `align-content: start|center|space-between|space-around|stretch;` distribute content along cross axis, ie space between rows/columns, but only if we have multiple rows/columns and flex-wrap is enabled.
+- `align-content: flex-start | flex-end | center | space-between | space-around | space-evenly | stretch | start | end | baseline;`: Distribute content along cross axis, ie space between rows/columns, but only if we have multiple rows/columns and flex-wrap is enabled.
 - `row-gap, column-gap`: Controls space between flex items. It applies to spacing ONLY between the items and not outer edges. The behavior could be thought of as a minimum gutter as it only takes effect if the space between items is smaller.
 - `gap`: Shorthand for row-gap and column-gap.
 
@@ -594,10 +592,6 @@ The main idea behind the flex layout is to give the container the ability to alt
 - `flex-shrink`: Its an unitless number. Defines the ability for a flex item to shrink if necessary. Default is 1.
 - `flex`: This is the shorthand for `flex-grow`, `flex-shrink` and `flex-basis` combined. The default is `0 1 auto`, but if you set it with a single number value, like `flex: 5;`, that changes the flex-basis to 0%, so it’s like setting flex-grow: 5; flex-shrink: 1; flex-basis: 0%;.
 - `align-self: auto | flex-start | flex-end | center | baseline | stretch;` Similar to `align-items` but it applies to single item.
-
-## Flex shorthand
-
-- `flex: 2 2 10%;` Flex-grow, flex-shrink, flex-basis.
 
 ## Responsive design and media queries
 
@@ -616,99 +610,6 @@ The main idea behind the flex layout is to give the container the ability to alt
 - `max-width`: maximum of npx and below.
 
 - `CSS reset`: A CSS script to reset the default css of a browser.
-
-# Bootstrap
-
-- container
-- container-fluid.
-
-- btn-primary
-- secondary
-- success
-- danger
-- warning
-- info
-- light
-- dark
-- btn-outline-primary etc
-- btn-lg/sm etc
-
-- display-1/2/3/4
-- lead
-- blockquote-[footer]
-
-- text-right/left/center
-
-### Utilities
-
-- text-primary.....
-- text-white/dark..
-
-- btn-primary....
-
-### Badge
-
-- Used in span
-- `badge badge-primary...`
-- `badge badge-pill`
-- `btn-group`: used to group buttons.
-
-### Alerts
-
-- `alert alert-primary`.. etc.
-- `alert-heading`: Used within an alert.
-- dismissable alert: needs bootstrap js files to work.
-- `aria-hidden`
-- `aria-close`: aria prefix is used for accessibility/screen readers.
-
-### Bootstrap grid system
-
-- Works only with a container.
-- contains div with class row of 12 units.
-- no-gutters will eliminate space between items in a row.
-- Each row contain div with class 'col' col-sm, col-6 etc.
-- if nonnumber after col then 12 units is equally divided.
-
-### Responsive BS grid
-
-- `col-md-6`: for md and above take 6 units otherwise full row.
-- md, sm, lg, xl etc
-
-For adding images in a row, use image-fluid.
-
-### Grid utilities
-
-- within a row we can use flexbox like classes like `justify-content-start`, `align-items-center`, `align-sel-start etc`.
-- For each of the above we have responsive variants like `justify-content-sm-start` etc.
-
-### Bootstrap forms
-
-- `form-control`: Used for individual inputs.
-- `form-group`: Used for group of inputs.
-- `form-row`:
-
-### Navbar
-
-### bootstrap icons
-
-- Another option is fontawesome.
-
-### Other bootstrap utilities
-
-- border-[top|bottom|left] etc
-- shadow
-- text-success etc: For text color.
-- bg-warn etc: For background color.
-- margin:
-- padding:
-- padding and margin can be made responsive by using sm, lg etc.
-- Card
-- Footer
-- Carousal: need js
-- Drop-down
-- Spinner
-- Progress
-- Modal
 
 # XPATH
 

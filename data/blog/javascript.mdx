@@ -300,9 +300,16 @@ let numberOfChickens = 6 //GOOD
 - Operator precedence: logical, mathematical than comparison.
 - `Conditional/ternary opeartor`: for eg. age > 18 ? "Adult" : "minor";
 - `Nullish Coalescing Operator (??)`: Introduced in 2020.
-- Returns its RHS operand when its LHS operand is `null` or `undefined`, and otherwise returns its LHS operand. Not 0 or "".
+- Returns its RHS operand when its LHS operand is `null` or `undefined`, and otherwise returns its LHS operand.
+- This can be seen as a special case of the logical OR (||) operator, which returns the right-hand side operand if the left operand is any falsy value, not only null or undefined. In other words, if you use || to provide some default value to another variable foo, you may encounter unexpected behaviors if you consider some falsy values as usable (e.g., '' or 0).
 - For eg: const guest = numGuests ?? 10;
 - Optional chaining: `?.` return undefined for null or undefined values. It's linked to null coalescing operator.
+
+## Nullish coalescing(NC) operator vs logical OR
+
+- NC gives the RHS/default value only for null or undefined LHS.
+- OR gives RHS/default for any `falsey` value.
+- So if you don't want default values for `""` or `0`, use NC, as OR will give RHS for these values as well.
 
 ### Comparison operators
 
@@ -463,7 +470,7 @@ var funcName = function (arg1) {} // Function expression
 ## Exception handling in JS
 
 - try, catch, finally.
-- finally: Executes regardless of whether an exception was thrown or caught.
+- `finally`: Executes regardless of whether an exception was thrown or caught.
 - Used in async functions and AJAX.
 
 ### setInterval(), clearInterval()
@@ -520,10 +527,20 @@ clearInterval(setReturn).
 
 - It is a compact syntax for function expressions.
 - Good for one line functions.
-- They don't have their own `this` keyword.
-- Special syntax for arrow functions with one argument.
+- Special syntax for arrow functions with one argument (no brackets).
 - implicit return: Works only if there is one expression in the body of the function.
+- In arrow functions, `this` is governed by how the function is created.
+- Arrow functions don't have their own bindings to `this`, `arguments` or `super`.
+- They are not used to define the methods of an object, as `this` will point to global object.
+- Don’t have their “own” this. If we reference `this` from such a function, it’s taken from the outer “normal” function.
+- `this` referes to the scope (of function/method) it was created in. If it is not created within scope of any method.function then the `this` points to global object.
+- Arrow functions cannot be used as constructors.
+- Arrow functions cannot use yield, within its body.
+- The call, apply and bind methods are NOT suitable as arrow functions.
+- Arrow functions do not have a `prototype` property.
+- The `yield` keyword may not be used in an arrow function's body. As a consequence, arrow functions cannot be used as generators
 - **Important**: We should not use arrow function as an object's method, as `this` will point to the lexical scope and not the caller, ie object.
+- Perhaps the greatest benefit of using Arrow functions is with methods like `setTimeout()` and `EventTarget.addEventListener()` that usually require some kind of closure, call, apply or bind to ensure that the function is executed in the proper scope.
 
 ```javascript
 // function expression
@@ -549,6 +566,26 @@ const square = (x) => x ** 2
 const square = (x) => {
   x ** 2
 }
+
+// To return an object literal expression
+// requires parentheses around expression
+params => ({foo: "a"}) // returning the object
+
+// Rest params are supported
+(a, b, ...r) => expression
+
+// Default parameters are supported
+(a=400, b=20, c) => expression
+
+// Destructuring within params supported
+([a, b] = [10, 20]) => a + b;  // result is 30
+({ a, b } = { a: 10, b: 20 }) => a + b; // result is 30
+
+// cannot contain a line break between its parameters and its arrow
+var func = (a, b, c)
+  => 1;
+// SyntaxError: Unexpected token '=>'
+
 ```
 
 #### Constructor function:
@@ -562,13 +599,6 @@ const square = (x) => {
 - When declared outside any object, `this` points to global (window/global) object.
 - When called using a new operator (constructor), the `this` points to the newly created object.
 - When used as a callback, then `this` refers to the execution context.
-
-#### Arrow functions:
-
-- In arrow functions, `this` is governed by how the function is created.
-- They are not used to define the methods of an object, as `this` will point to global object.
-- Don’t have their “own” this. If we reference `this` from such a function, it’s taken from the outer “normal” function.
-- `this` referes to the scope (of function/method) it was created in. If it is not created within scope of any method.function then the `this` points to global object.
 
 ## Array methods in JS
 

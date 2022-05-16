@@ -327,11 +327,13 @@ summary: 'Introduction to ReactJS'
 - `const nameInputRef = useRef();`
 - `&lt;input id="username" type="text" ref={nameInputRef} / &gt;`
 - `nameInputRef.current.value = '';`
+- If you pass a ref object to React with `<div ref={myRef} />`, React will set its `.current` property to the corresponding DOM node whenever that node changes.
 
 ### useState vs useRef
 
 - When we have to just read the value from the component, we use `useRef`.
 - When we need to update/change the value, we use `useState`.
+- Mutattingthe ref doen't trigger a render.
 
 ### Controlled vs Uncontrolled Components
 
