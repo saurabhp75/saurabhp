@@ -64,13 +64,14 @@ let person: {
 
 ```javascript
 // No type annotations here, but TypeScript can spot the bug
-const names = ["Alice", "Bob", "Eve"];
+const names = ['Alice', 'Bob', 'Eve']
 
 // Contextual typing also applies to arrow functions
 names.forEach((s) => {
-  console.log(s.toUppercase());
-Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?
-});
+  console.log(s.toUppercase())
+  // Property 'toUppercase' does not exist on type 'string'.
+  // Did you mean 'toUpperCase'?
+})
 ```
 
 ## Object Types
@@ -229,11 +230,13 @@ type Window = {
 - Sometimes this rule can be too conservative and will disallow more complex coercions that might be valid. If this happens, you can use two assertions, first to any (or unknown), then to the desired type: `const a = (expr as any) as T;`
 
 ```javascript
-// Ts knows that this will return some kind of HTMLElement, but you know that
-// your page will always have an HTMLCanvasElement with a given ID
+// Ts knows that this will return some kind of HTMLElement,
+// but you know that your page will always have an
+// HTMLCanvasElement with a given ID
 const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;
 
-// You can also use the angle-bracket syntax (except if the code is in a .tsx file)
+// You can also use the angle-bracket syntax
+// (except if the code is in a .tsx file)
 const myCanvas = <HTMLCanvasElement>document.getElementById("main_canvas");
 ```
 
@@ -241,7 +244,7 @@ const myCanvas = <HTMLCanvasElement>document.getElementById("main_canvas");
 
 - In addition to the general types `string` and `number`, we can refer to specific strings and numbers in type positions.
 - But by combining literals into unions, you can express a much more useful concept - for eg, functions that only accept a certain set of known values.
-- you can combine these with non-literal types.
+- You can combine these with non-literal types.
 - `boolean literals`: There are only two boolean literal types, `true` and `false`. The type boolean itself is actually just an alias for the union `true | false`.
 
 ```javascript
@@ -256,12 +259,98 @@ function compare(a: string, b: string): -1 | 0 | 1 {
 interface Options {
   width: number;
 }
+
 function configure(x: Options | 'auto') {
   // ...
 }
 ```
 
-## function and function types.
+## Literal inference
+
+```javascript
+// Argument of type 'string' is not assignable to parameter
+// of type '"GET" | "POST"'.
+const req = { url: "https://example.com", method: "GET" };
+handleRequest(req.url, req.method);
+
+// Solution 1:
+const req = { url: "https://example.com", method: "GET" as "GET" };
+// Solution 2
+handleRequest(req.url, req.method as "GET");
+// Solution 3:
+const req = { url: "https://example.com", method: "GET" } as const
+```
+
+## null and undefined
+
+- `strictNullChecks off`: Values that might be null or undefined can still be accessed normally, and the values null and undefined can be assigned to a property of any type. This setting is not recommended as it is major source of bugs.
+- `strictNullChecks on`: When a value is null or undefined, you will need to test for those values before using methods or properties on that value.
+- Use `!` when you know that the value can’t be null or undefined.
+
+## Non-null Assertion Operator (Postfix !)
+
+- Writing `!` after any expression is effectively a type assertion that the value isn’t `null` or `undefined`.
+- It is used for removing `null` and `undefined` from a type without doing any explicit checking.
+
+## Enums
+
+- Not used often.
+
+# Less Common Primitives
+
+## bigint
+
+- From ES2020 onwards, there is a primitive in JavaScript used for very large integers, `BigInt`.
+
+```javascript
+// Creating a bigint via the BigInt function
+const oneHundred: bigint = BigInt(100)
+
+// Creating a BigInt via the literal syntax
+const anotherHundred: bigint = 100n
+```
+
+## symbol
+
+- primitive in JavaScript used to create a `globally unique reference` via the function `Symbol()`.
+
+```javascript
+const firstName = Symbol('name')
+const secondName = Symbol('name')
+
+if (firstName === secondName) {
+  // This condition will always return 'false'
+  // since the types 'typeof firstName' and
+  // 'typeof secondName' have no overlap.
+  // Can't ever happen
+}
+```
+
+# Narrowing
+
+- `Type guard`: Special checks in the code that helps ts to narrow down the types to more specific type than declared.
+- `Narrowing`: It is the process of refining types to more specific types than declared.
+
+## Type gaurds
+
+- `typeof` typegaurd.
+- Truthiness narrowing.
+- Equality narrowing
+- The `in` operator narrowing.
+- `instanceof` narrowing.
+- Assignments
+
+## Control flow analysis
+
+## Using type predicates
+
+## Discriminated unions
+
+## The `never` type
+
+- When narrowing, you can reduce the options of a union to a point where you have removed all possibilities and have nothing left. In those cases, ts will use a `never` type to represent a state which shouldn’t exist.
+
+#### function and function types.
 
 - Return type of a function can be inferred.
 
