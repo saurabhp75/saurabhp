@@ -6,18 +6,44 @@ draft: false
 summary: 'Introduction to Typescript'
 ---
 
+## Introduction
+
 - Superset of JS.
-
 - Add static type to JS.
-
 - We can use type annotations on variables for eg, `let myAge: number;`
+- In the output `js` file, the types are removed/erased.
+- Type annotations never change the runtime behavior of your program.
+- `noImplicitAny`: When true, ts will issue an error whenever it would have inferred `any`.
+- `strictNullChecks`: When true, `null` and `undefined` have their own distinct types and you’ll get a type error if you try to use them where a concrete value is expected.
 
-- npx tsc filename.js
+## Downlevelling
+
+- The process of moving from a newer or “higher” version of ECMAScript down to an older or “lower” one is called `downleveling`.
+
+## Running a ts file
+
+- Install typescript `npm install -g typescript`.
+- `npx tsc filename.ts`: If you’d prefer to run tsc from a local `node_modules` package instead.
+- `tsc filename.ts`: If you want to tsc from global installation.
+
+## Type vs interface
+
+- You should prefer `interface`. Use `type` when you need specific features.
 
 - Primitive types: number, string and boolean.
 
-- Complex types: arrays and objects
-- string[], number[], boolean [] etc.
+## Complex types: arrays and objects
+
+- For eg. `number[]`, `string[]`, boolean[] etc. Alternatively `Array<number>`, `Array<string>`, `Array<boolean>`.
+- Represented as `T<U>` using generics.
+
+## Any type
+
+- Special ts type, you can use whenever you don’t want a particular value to cause typechecking errors.
+- You can access any properties of it (which will in turn be of type any), call it like a function, assign it to (or from) a value of any type, or pretty much anything else that’s syntactically legal.
+- It is assumed you know the environment better than TypeScript.
+- When you don’t specify a type, and ts can’t infer it from context, the compiler will typically default to `any`.
+- You usually want to avoid this, though, because `any` isn’t type-checked. Use the compiler flag `noImplicitAny` to flag any "implicit" `any` as an error.
 
 ```javascript
 let person: {
@@ -25,6 +51,91 @@ let person: {
   age: number,
 }
 ```
+
+## TS and functions
+
+- When a parameter has a type annotation, arguments to that function will be checked.
+- Even if there is no annotations on parameters, ts will still check if the right number of arguments were passed.
+
+## Anonymous functions
+
+- When a function appears in a place where ts can determine how it’s going to be called, the parameters of that function are automatically given types.
+- This process is called `contextual typing` because the context that the function occurred within informs what type it should have.
+
+```javascript
+// No type annotations here, but TypeScript can spot the bug
+const names = ["Alice", "Bob", "Eve"];
+
+// Contextual typing also applies to arrow functions
+names.forEach((s) => {
+  console.log(s.toUppercase());
+Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?
+});
+```
+
+## Object Types
+
+- This refers to any JavaScript value with properties, which is almost all of them! To define an object type, we simply list its properties and their types.
+- The type part of each property is also optional. If you don’t specify a type, it will be assumed to be any.
+- Object types can also specify that some or all of their properties are optional. To do this, add a `?` after the property name.
+
+```javascript
+// The parameter's type annotation is an object type
+// You can use , or ; to separate the properties,
+// and the last separator is optional either way.
+function printCoord(pt: { x: number, y: number }) {
+  console.log("The coordinate's x value is " + pt.x)
+  console.log("The coordinate's y value is " + pt.y)
+}
+printCoord({ x: 3, y: 7 })
+```
+
+## Accessing properties in javascript
+
+- In JavaScript, if you access a property that doesn’t exist, you’ll get the value `undefined` rather than a runtime error.
+- Because of this, when you read from an optional property, you’ll have to check for `undefined` before using it.
+- A safe alternative is using modern JavaScript syntax, `?`.
+
+## Union Types
+
+- TypeScript’s type system allows you to build new types out of existing ones using a large variety of `operators`.
+- A union type is a type formed from two or more other types, representing values that may be any one of those types.
+- We refer to each of these types as the union’s `members`.
+
+## Working with union types
+
+- Ts will only allow an operation if it is valid for every member of the union. For example, if you have the union `string | number`, you can’t use methods that are only available on string.
+- The solution is to `narrow` the union with code by using `if` checks.
+
+## Finding the types of a variable
+
+- For primitive types, we use `typeof` operator to find it's type.
+- For arrays, we use `Array.isArray(x)`.
+
+## Type Aliases
+
+- When we want to use `object` and `union` types more than once it is convinient to use type aliases.
+- Type alises are name for any type.
+
+```javascript
+type Point = {
+  x: number,
+  y: number,
+}
+
+type ID = number | string
+
+interface Point {
+  x: number;
+  y: number;
+}
+```
+
+## Interfaces
+
+- An `interface declaration` is another way to name an object type.
+
+- One such operator is `union` (`|`).
 
 - Array of object type.
 
@@ -38,6 +149,115 @@ let person: {
 type person = {
   name: string,
   age: number,
+}
+```
+
+## Differences Between Type Aliases and Interfaces
+
+- Key distinction is that a `type` cannot be re-opened to add new properties vs an `interface` which is always extendable.
+- If you would like a heuristic, use interface until you need to use features from type.
+
+## Extending an interface
+
+```javascript
+interface Animal {
+  name: string;
+}
+
+interface Bear extends Animal {
+  honey: boolean;
+}
+
+// getBear() gives Bear type
+const bear = getBear()
+bear.name
+bear.honey
+```
+
+## extending a type via intersections
+
+```javascript
+type Animal = {
+  name: string,
+}
+
+type Bear = Animal & {
+  honey: boolean,
+}
+
+// getBear() gives Bear type
+const bear = getBear()
+bear.name
+bear.honey
+```
+
+## Adding new fields to an existing interface
+
+```javascript
+interface Window {
+  title: string;
+}
+
+interface Window {
+  ts: TypeScriptAPI;
+}
+
+const src = 'const a = "Hello World"'
+window.ts.transpileModule(src, {})
+```
+
+## A type cannot be changed after being created
+
+```javascript
+type Window = {
+  title: string,
+}
+
+type Window = {
+  ts: TypeScriptAPI,
+}
+
+// Error: Duplicate identifier 'Window'.
+```
+
+## Type Assertions
+
+- Sometimes you will have information about the type of a value that TypeScript can’t know about.
+- Like a type annotation, type assertions are removed by the compiler and won’t affect the runtime behavior of your code.
+- Ts only allows type assertions which convert to a more specific or less specific version of a type. This rule prevents “impossible” coercions like.
+- `const x = "hello" as number;`
+- Sometimes this rule can be too conservative and will disallow more complex coercions that might be valid. If this happens, you can use two assertions, first to any (or unknown), then to the desired type: `const a = (expr as any) as T;`
+
+```javascript
+// Ts knows that this will return some kind of HTMLElement, but you know that
+// your page will always have an HTMLCanvasElement with a given ID
+const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;
+
+// You can also use the angle-bracket syntax (except if the code is in a .tsx file)
+const myCanvas = <HTMLCanvasElement>document.getElementById("main_canvas");
+```
+
+## Literal Types
+
+- In addition to the general types `string` and `number`, we can refer to specific strings and numbers in type positions.
+- But by combining literals into unions, you can express a much more useful concept - for eg, functions that only accept a certain set of known values.
+- you can combine these with non-literal types.
+- `boolean literals`: There are only two boolean literal types, `true` and `false`. The type boolean itself is actually just an alias for the union `true | false`.
+
+```javascript
+function printText(s: string, alignment: 'left' | 'right' | 'center') {
+  // ...
+}
+
+function compare(a: string, b: string): -1 | 0 | 1 {
+  return a === b ? 0 : a > b ? 1 : -1
+}
+
+interface Options {
+  width: number;
+}
+function configure(x: Options | 'auto') {
+  // ...
 }
 ```
 
@@ -62,7 +282,7 @@ const stringArray = insertAtBeginning<string>(['a', 'b', 'c'], 'd');
 
 - npx create-react-app --template typescript
 
-## React with rs.
+## React with ts.
 
 `React.FC<{items: string []}>`
 
