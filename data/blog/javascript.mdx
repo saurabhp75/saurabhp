@@ -1813,3 +1813,16 @@ const obj = Object.fromEntries(entries)
 console.log(obj)
 // expected output: Object { foo: "bar", baz: 42 }
 ```
+
+## JS builtin operators
+
+- `typeof`:
+- `"prop "in "obj"`:
+
+```javascript
+const itemList = ['chair', 'table', 'box']
+
+length in itemList ? console.log('This will be printed') : console.log('This should not print')
+```
+
+- `object instanceof constructor`: Tests the presence of `constructor.prototype` property in object's `prototype chain`.
