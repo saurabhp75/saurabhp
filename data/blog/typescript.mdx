@@ -900,3 +900,39 @@ function greet(person: { name: string, age: number }) {
 ## Optional Properties
 
 - Marked by adding a question mark, `?`.
+- There is currently no way to place type annotations within `destructuring patterns`. This is because the following syntax already means something different in JavaScript.
+
+```javascript
+// In an object destructuring pattern, 'shape: Shape'
+// means grab the property shape and redefine it
+// locally as a variable named Shape
+function draw({ shape: Shape, xPos: number = 100 /*...*/ }) {
+  // Cannot find name 'shape'. Did you mean 'Shape'?
+  render(shape);
+  // Cannot find name 'xPos'.
+  render(xPos);
+```
+
+## readonly Properties
+
+- Properties can also be marked as readonly for Ts. While it won’t change any behavior at runtime, a property marked as readonly can’t be written to during type-checking.
+
+- Ts doesn’t factor in whether properties on two types are readonly when checking whether those types are compatible.
+
+```javascript
+interface SomeType {
+  readonly prop: string;
+}
+
+function doSomething(obj: SomeType) {
+  // We can read from 'obj.prop'.
+  console.log(`prop has the value '${obj.prop}'.`);
+
+  // But we can't re-assign it.
+  // Cannot assign to 'prop' because it is a
+  // read-only property.
+  obj.prop = "hello";
+}
+```
+
+## Index Signatures
