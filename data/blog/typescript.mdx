@@ -26,11 +26,11 @@ summary: 'Introduction to Typescript'
 - `npx tsc filename.ts`: If you’d prefer to run tsc from a local `node_modules` package instead.
 - `tsc filename.ts`: If you want to tsc from global installation.
 
-## Type vs interface
+## The primitive types
 
-- You should prefer `interface`. Use `type` when you need specific features.
-
-- Primitive types: number, string and boolean.
+- `string`: It represents string values like `"Hello, world"`.
+- `number`: It is for numbers like `42`.
+- `boolean`: It is for the two values `true` and `false`.
 
 ## Complex types: arrays and objects
 
@@ -134,7 +134,7 @@ interface Point {
 
 ## Interfaces
 
-- An `interface declaration` is another way to name an object type.
+- An `interface declaration` is another way to name an `object` type.
 
 - One such operator is `union` (`|`).
 
@@ -157,6 +157,8 @@ type person = {
 
 - Key distinction is that a `type` cannot be re-opened to add new properties vs an `interface` which is always extendable.
 - If you would like a heuristic, use interface until you need to use features from type.
+- You should prefer `interface`. Use `type` when you need specific features.
+- type aliases, unlike interfaces, can describe more than just object types.
 
 ## Extending an interface
 
@@ -936,3 +938,312 @@ function doSomething(obj: SomeType) {
 ```
 
 ## Index Signatures
+
+- Sometimes you don’t know all the names of a type’s properties ahead of time, but you do know the shape of the values.
+- In those cases you can use an `index signature` to describe the types of possible values.
+- An index signature property type must be either ‘string’ or ‘number’.
+- you can make index signatures readonly in order to prevent assignment to their indices.
+
+```javascript
+interface StringArray {
+  [index: number]: string;
+}
+
+const myArray: StringArray = getStringArray()
+// const secondItem: string
+const secondItem = myArray[1]
+```
+
+## Extending Types
+
+- We can have types that are more specific versions of other types.
+- The `extends` keyword on an `interface` allows us to copy members from other named types, and add the new members.
+- Interfaces can also extend from multiple types.
+
+```javascript
+interface BasicAddress {
+  name?: string;
+  street: string;
+  city: string;
+  country: string;
+  postalCode: string;
+}
+// Add the new fields that are unique to 'AddressWithUnit'
+interface AddressWithUnit extends BasicAddress {
+  unit: string;
+}
+
+interface Colorful {
+  color: string;
+}
+
+interface Circle {
+  radius: number;
+}
+
+// extending from multiple interfaces
+interface ColorfulCircle extends Colorful, Circle {}
+
+const cc: ColorfulCircle = {
+  color: 'red',
+  radius: 42,
+}
+```
+
+## Intersection Types
+
+- Ts provides construct called intersection types that is used to combine existing `object` types.
+- An `intersection` type is defined using the `&` operator.
+
+```javascript
+interface Colorful {
+  color: string;
+}
+interface Circle {
+  radius: number;
+}
+
+type ColorfulCircle = Colorful & Circle
+```
+
+## Interfaces vs. Intersections
+
+- The principle difference is how conflicts are handled, and that is the main reason why you’d pick one over the other between an interface and a type alias of an intersection type.
+- Both `interface` and `type` aliases can be generic.
+
+## Generic Object Types
+
+- Used to build reusable types.
+- We can avoid overloads by using generic functions.
+
+```javascript
+interface Box<Type> {
+  contents: Type;
+}
+
+let box: Box<string>
+
+interface Apple {
+  // ....
+}
+
+// Same as '{ contents: Apple }'.
+type AppleBox = Box<Apple>
+
+// type aliases can also be generic
+type Box<Type> = {
+  contents: Type,
+}
+```
+
+## Array Type
+
+- `Array` is a generic type.
+- `number[]` or `string[]`, are just a shorthand for `Array<number>` and `Array<string>`.
+- Other generic types are `Map<K, V>`, `Set<T>`, and `Promise<T>`.
+- Unlike the `readonly` property modifier, assignability isn’t bidirectional between regular Arrays and ReadonlyArrays.
+
+## ReadonlyArray Type
+
+- `ReadonlyArray` is a special type that describes arrays that shouldn’t be changed.
+- We can read from 'values' but we can't mutate 'values', for eg using `push`.
+- Unlike Array, there isn’t a ReadonlyArray constructor that we can use. Instead, we can assign regular Arrays to ReadonlyArrays.
+- Ts provides a shorthand syntax for `ReadonlyArray<Type>` with `readonly Type[]`.
+
+```javascript
+// Error: 'ReadonlyArray' only refers to a type,
+but is being used as a value here.
+new ReadonlyArray("red", "green", "blue");
+// Correct way to initialize a readonly array
+const roArray: ReadonlyArray<string> = ["red", "green", "blue"];
+
+let x: readonly string[] = [];
+let y: string[] = [];
+
+x = y;
+// Error: The type 'readonly string[]' is 'readonly'
+// and cannot be assigned to the mutable type 'string[]'.
+y = x;
+```
+
+## Tuple Types
+
+- A tuple type is an Array type that knows exactly how many elements it contains, and exactly which types it contains at specific positions.
+- Like ReadonlyArray, it has no representation at runtime, but is significant to Ts.
+- If we try to index past the number of elements, we’ll get an error.
+- We can also destructure tuples using JavaScript’s array destructuring.
+- Tuples gives us flexibility in whatever we want to name our variables when we destructure them. This is unlike using objects with descriptive property names. Choice is upto us when developing APIs.
+- Tuples can have optional properties by using question mark (? after an element’s type). Optional tuple elements can only come at the end, and also affect the type of length.
+
+```typescript
+// tuple type of string and number whose 0 index
+// contains a string and 1 index contains a number.
+type StringNumberPair = [string, number]
+
+type Either2dOr3d = [number, number, number?]
+
+function setCoordinate(coord: Either2dOr3d) {
+  // const z: number | undefined
+  const [x, y, z] = coord
+  // (property) length: 2 | 3
+  console.log(`Provided coordinates had ${coord.length} dimensions`)
+}
+
+// first two elements are string and number respectively,
+// but which may have any number of booleans following.
+type StringNumberBooleans = [string, number, ...boolean[]]
+// first element is string and then any number of booleans
+// and ending with a number.
+type StringBooleansNumber = [string, ...boolean[], number]
+// tarting elements are any number of booleans and ending
+// with a string then a number.
+type BooleansStringNumber = [...boolean[], string, number]
+
+const a: StringNumberBooleans = ['hello', 1]
+const b: StringNumberBooleans = ['beautiful', 2, true]
+const c: StringNumberBooleans = ['world', 3, true, false, true, false, true]
+
+// Useful when you don’t want to introduce intermediate variables/params.
+function readButtonInput(...args: [string, number, ...boolean[]]) {
+  const [name, version, ...input] = args
+  // ...
+}
+
+// Equivalent to above
+function readButtonInput(name: string, version: number, ...input: boolean[]) {
+  // ...
+}
+```
+
+## readonly Tuple Types
+
+- Tuples types have readonly variants, and can be specified by sticking a `readonly` modifier in front of them.
+- Array literals with const assertions will be inferred with readonly tuple types.
+
+# Creating Types from Types
+
+- TypeScript’s type system is very powerful because it allows expressing types in terms of other types.
+
+  - `Generics`: Types which take parameters.
+  - `Keyof Type Operator`: Using the keyof operator to create new types.
+  - `Typeof Type Operator`: Using the typeof operator to create new types.
+  - `Indexed Access Types`: Using Type['a'] syntax to access a subset of a type.
+  - `Conditional Types`: Types which act like if statements in the type system.
+  - `Mapped Types`: Creating types by mapping each property in an existing type.
+  - `Template Literal Types`: Mapped types which change properties via template literal strings.
+
+## Generics
+
+- We can create a generic function using `any` type, but we will lose the information about the type of the parameter.
+- In a generic, we use a type variable `Type`, which capture the type the user provides.
+- `type argument inference`: We let the compiler to set the value of Type for us automatically based on the type of the argument we pass in a generic.
+
+```javascript
+// Genric function
+function identity<Type>(arg: Type): Type {
+  return arg
+}
+// Method#1 to call a generic function.
+let output = `identity<string>('myString')`
+// Method#2 ro call a generic funtion.
+let output = identity('myString')
+```
+
+## Generic Types
+
+```javascript
+// Interface with generic function
+interface GenericIdentityFn {
+  // call signature
+  <Type>(arg: Type): Type;
+}
+
+function identity<Type>(arg: Type): Type {
+  return arg
+}
+
+let myIdentity: GenericIdentityFn = identity
+
+// Genric interface
+interface GenericIdentityFn<Type> {
+  (arg: Type): Type;
+}
+
+function identity<Type>(arg: Type): Type {
+  return arg
+}
+
+let myIdentity: GenericIdentityFn<number> = identity
+```
+
+## Generic Classes
+
+- A generic class has a similar shape to a generic interface.
+- Class has two sides to its type: the `static side` and the `instance side`.
+- Generic classes are only generic over their `instance side` rather than their static side, so when working with classes, static members can not use the class’s type parameter.
+
+```javascript
+class GenericNumber<NumType> {
+  zeroValue: NumType;
+  // call signature
+  add: (x: NumType, y: NumType) => NumType;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function (x, y) {
+  return x + y;
+};
+```
+
+## Generic Constraints
+
+```javascript
+// Adding a contraint to generic type.
+interface Lengthwise {
+  length: number;
+}
+
+function loggingIdentity<Type extends Lengthwise>(arg: Type): Type {
+  // Now we know it has a .length property, so no more error
+  console.log(arg.length);
+  return arg;
+}
+```
+
+## Using Type Parameters in Generic Constraints
+
+- You can declare a type parameter that is constrained by another type parameter.
+
+```javascript
+function getProperty<Type, Key extends keyof Type>(obj: Type, key: Key) {
+  return obj[key];
+}
+
+let x = { a: 1, b: 2, c: 3, d: 4 };
+
+getProperty(x, "a");
+getProperty(x, "m");
+Argument of type '"m"' is not assignable to parameter of type '"a" | "b" | "c" | "d"'.
+```
+
+## Using Class Types in Generics
+
+- When creating factories in TypeScript using generics, it is necessary to refer to class types by their constructor functions.
+
+```javascript
+function create<Type>(c: { new(): Type }): Type {
+  return new c()
+}
+```
+
+## Keyof Type Operator
+
+- The `keyof` operator takes an object type and produces a string or numeric literal union of its keys.
+
+```javascript
+type Point = { x: number; y: number };
+// type P = keyof Point
+type P = keyof Point;
+
+```
