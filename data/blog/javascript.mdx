@@ -72,7 +72,7 @@ summary: 'Introduction to Javascript'
 
 - `ReferenceError`: when we try to access a variable in temporal dead zone. Or a variable which is not defined.
 - `Syntax error`: for eg. redefining variable using `let`. Or declaring `const` without initialisation.
-- `TypeError`: When we try to reassign a `const` variable.
+- `TypeError`: When we try to reassign a `const` variable or access a property from an `undefined` or `null` value.
 
 **Note**: A variable can be redefined using `var` but not when using `let` or `const`.
 
@@ -135,21 +135,22 @@ summary: 'Introduction to Javascript'
 
 ### 5 primitive data types
 
-- In js all values are either primitive type or an object.
+- In JS all values are either primitive type or an object.
 
 1. **Numbers**: Includes ALL numbers, integer and fraction.
 
-- % : remainder
-- 1/3= 0.33333 (no type coercion of result)
+   - `%` : remainder
+   - 1/3= 0.33333 (no type coercion of result)
 
 2. **Strings**:
 
-- Use both `"` and `'`. You can use one inside another.
-- Use + to concatenate two strings or a string with a number, the result will be a number, this is called `type coersion`.
-- Use '/' to escape quotes in a string.
-- Use `length` property for string length.
+   - Use both `"` and `'`. You can use one inside another.
+   - Use `+` to concatenate two strings or a string with a number, the result will be a number, this is called `type coersion`.
+   - Use `/` to escape quotes in a string.
+   - Use `length` property for string length.
+
 - Use of index in a string square brackets.
-- You can't change/mutate a string.
+- You can't mutate a string as it's a primitive type.
 
 3. **boolean**: true, false
 
@@ -163,15 +164,10 @@ summary: 'Introduction to Javascript'
 7. **BigInt(ES2020)**: An int too large to fit in number type.
    Created by appending n to the end of an integer literal, or by calling the BigInt() constructor (but without the new operator)
 
-8. Technically there are two others: **Symbol** and **BigInt**.
+8. **NaN**: Numeric value that represents something that is...not a number for eg. `0/0`, `1 + NaN`.
 
-9. **NaN**: Numeric value that represents something that is...not a number for eg. 0/0, 1 + NaN.
-
-**Note**: null and undefined are values, not types.
-
-- Typeof null is object. Js quirk.
-- Typeof NaN is number.
-- Typeof undefined is undefined.
+- `typeof null` is object. Js quirk.
+- `typeof NaN` is number.
 
 ### Primitives vs. Objects (Primitive vs. Reference Types)
 
@@ -185,8 +181,7 @@ summary: 'Introduction to Javascript'
 
 - Syntax: var variableName = "hi"
 - Variable type can be changed after assignment.
-- camelCase.
-- naming conventions: no spaces, must not begin with number, can contain letters, digits, unicode, `$` and `_`.
+- Naming conventions: camelCase, no spaces, must not begin with number, can contain letters, digits, unicode, `$` and `_`.
 - Also no reserve names like `new` or `function`.
 - Constants should be all uppercase.
 
@@ -220,7 +215,7 @@ let numberOfChickens = 6 //GOOD
 ### String built in methods
 
 - Adding a `+` operator in front of a string tries to convert it to number if possible otherwise it gives `NaN`.
-- We can chain the methods:
+- We can chain the methods.
 - `toUpperCase()/toLowerCase(`): Changes the case of string. Doesn't change the original string.
 - `trim()`: Removes leading and trailing whitespaces, doesn't change the string.
 - `string1.indexOf("string2")`: Searches within a string. Gives index of str2 (first occurence) in str1 otherwise -1. Used to find if a string contains other string.
@@ -1875,7 +1870,7 @@ Note: `typeof(null)` gives `object` which is incorrect as per the standard. It s
 
 - This is very important.
 - JS won’t let us set a property on any primitive value.
-- JS won't allow us to mutate primitive value, whether it throws an error or silently refuse depende upon the mode of execution.
+- JS won't allow us to mutate primitive value, whether it throws an error or silently refuse depending upon the mode of execution.
 
 ```javascript
 // In strict mode it will throw an error
@@ -2092,12 +2087,12 @@ size !== size
 - JS has several kinds of equality. They include same value equality, strict equality, and loose equality.
 - Same value equality, or Object.is(a, b), matches the concept of the sameness of values that we introduced in the previous module.
   - Understanding this kind of equality helps prevent bugs! You will often need to know when you’re dealing with the same value, and when you’re dealing with two different values.
-  - When we draw a diagram of values and variables, the same value cannot appear twice. Object.is(a, b) is true when variables a and b point to the same value on our diagram.
+  - When we draw a diagram of values and variables, the same value cannot appear twice. `Object.is(a, b)` is true when variables a and b point to the same value on our diagram.
   - Same value equality is verbose and a bit annoying to write, but it's also the easiest to explain, which is why we started with it.
 - In practice, you will use strict equality, or a === b, most often. It is equivalent to the same value equality except for two rare special cases:
-  - NaN === NaN is false, even though they are the same value.
-  - 0 === -0 and -0 === 0 is true, but they are different values.
-- You can check whether x is NaN using Number.isNaN(x).
+  - `NaN === NaN` is false, even though they are the same value.
+  - `0 === -0` and `-0 === 0` is true, but they are different values.
+- You can check whether x is NaN using `Number.isNaN(x)`.
 - Loose equality (==) uses a set of arcane rules and is often avoided.
 
 # Properties (8)
@@ -2140,7 +2135,7 @@ JavaScript uses a set of rules that looks something like this:
   1. Figure out which wire is on the left.
   2. Figure out which value is on the right.
   3. Point that wire to that value.
-- An expression like obj.property is calculated in three steps:
+- An expression like `obj.property` is calculated in three steps:
   1. Figure out which value is on the left.
   2. If it’s null or undefined, throw an error.
   3. If that property exists, the result is the value it points to. If that property doesn’t exist, the result is undefined.
@@ -2159,7 +2154,7 @@ JavaScript uses a set of rules that looks something like this:
 
 ## Let vs. Const
 
-- const prevents variable reassignment—not object mutation.
+- `const` prevents variable reassignment—not object mutation.
 
 ## Recap
 
@@ -2188,8 +2183,8 @@ let gwen = {
 }
 ```
 
-- although the value of gwen.teeth is 32, it doesn’t mean gwen has a teeth property!
-- This serves to remind us that gwen.teeth is an expression—a question to our JavaScript universe.
+- Although the value of `gwen.teeth` is 32, it doesn’t mean gwen has a teeth property!
+- This serves to remind us that `gwen.teeth` is an expression—a question to our JavaScript universe.
 
 ## Prototype Chain
 
@@ -2198,7 +2193,7 @@ let gwen = {
 
 ## Shadowing
 
-- once we find our property, we stop the search.
+- Once we find our property, we stop the search.
 - If you want to check if an object has its own property with a certain name, you can call a built-in function called `hasOwnProperty`. It returns true for “own” properties, and does not look at the prototypes.
 
 ```js
@@ -2229,7 +2224,7 @@ console.log(gwen.teeth) // 31
 
 ## The Object Prototype
 
-- All objects created with the {} syntax have the special `__proto__` wire pointing to a default `Object Prototype`.
+- `All objects` created with the `{}` syntax have the special `__proto__` wire pointing to a default `Object Prototype`.
 
 ## An Object With No Prototype
 
@@ -2272,8 +2267,8 @@ donut2.eat()
 ```
 
 - Manually adding **proto** to every object looked gross.
-- When you put the new keyword before the Donut() function call, two things happen.
-  - The object is created automatically, so you don’t need to return it from Donut. (It becomes available as this.)
+- When you put the `new` keyword before the Donut() function call, two things happen.
+  - The object is created automatically, so you don’t need to return it from Donut. (It becomes available as `this`.)
   - That object’s **proto** will be set to whatever you put into the function’s prototype property.
 - A function’s prototype property lets you configure the **proto** of the objects that you get with new calls.
 
@@ -2296,21 +2291,21 @@ donut2.eat()
 
 - In modern code, you would usually write a class with a constructor instead.
 
-```
+```js
 class Donut {
   constructor() {
-    this.shape = 'round';
+    this.shape = 'round'
   }
   eat() {
-    console.log('Nom nom nom');
+    console.log('Nom nom nom')
   }
-};
+}
 
-let donut1 = new Donut(); // __proto__: Donut.prototype
-let donut2 = new Donut(); // __proto__: Donut.prototype
+let donut1 = new Donut() // __proto__: Donut.prototype
+let donut2 = new Donut() // __proto__: Donut.prototype
 
-donut1.eat();
-donut2.eat();
+donut1.eat()
+donut2.eat()
 ```
 
 ##
@@ -2340,8 +2335,269 @@ miles.lookOut()
 
 ## Recap
 
-- When reading obj.something, if obj doesn’t have a something property, JavaScript will look for obj.**proto**.something. Then it will look for obj.**proto**.**proto**.something, and so on, until it either finds our property or reaches the end of the prototype chain.
-- When writing to obj.something, JavaScript will usually write to the object directly instead of traversing the prototype chain.
-- We can use obj.hasOwnProperty('something') to determine whether our object has its own property called something.
-- We can “pollute” a prototype shared by many objects by mutating it. We can even do this to the Object Prototype—the default prototype for {} objects! (But we shouldn’t, unless we’re pranking our colleagues.)
-- You probably won’t use prototypes much directly in practice. However, they are fundamental to JavaScript objects, so it is handy to understand their underlying mechanics. Some advanced JavaScript features, including classes, can be expressed in terms of prototypes.
+- When reading `obj.something`, if obj doesn’t have a something property, JS will look for obj.**proto**.something. Then it will look for obj.**proto**.**proto**.something, and so on, until it either finds our property or reaches the end of the `prototype chain`.
+- When writing to `obj.something`, JS will usually write to the object directly instead of traversing the prototype chain.
+- We can use `obj.hasOwnProperty('something')` to determine whether our object has its own property called something.
+- We can “pollute” a prototype shared by many objects by mutating it. We can even do this to the Object Prototype—the default prototype for `{}` objects! (But we shouldn’t, unless we’re pranking our colleagues.)
+- You probably won’t use prototypes much directly in practice. However, they are fundamental to JS objects, so it is handy to understand their underlying mechanics. Some advanced JS features, including classes, can be expressed in terms of prototypes.
+
+# JS for React
+
+## Ternary operator
+
+- Used in React for conditional rendering.
+
+## Logical operators && or ||
+
+- Used in React for conditional rendering.
+
+```js
+// Ternary operator
+const buttonLabel = playback === 'stop' ? 'play ▶️' : 'stop ⏹️'
+// Logical operator
+const userComponent = isLoggedIn && getUserComponent()
+```
+
+## Optional chaining && nullish coalascing operator
+
+## Closures
+
+- A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment within which that function was declared).
+- Closure gives you access to an outer function's scope from an inner function.
+- In JS, closures are created every time a function is created, at function creation time.
+
+## Lexical scoping
+
+- Describes how a parser resolves variable names when functions are nested.
+- The word lexical refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available.
+- Nested functions have access to variables declared in their outer scope.
+
+## Template literals:
+
+- Template literals are literals delimited with backtick (`) characters, allowing for:
+
+  - Multi-line strings,
+  - `String interpolation` with embedded expressions,
+  - Special constructs called `tagged templates`.
+
+- Along with having normal strings, template literals can also contain other parts called `placeholders`
+- `placeholders`: Embedded expressions delimited by a dollar sign and curly braces: `${expression}`.
+- The strings and placeholders get passed to a function — either a default function, or a function you supply.
+- The default function (when you don’t supply your own) just performs string interpolation and always return a string.
+- `String interpolation`: To do substitution of the placeholders and then concatenate the parts into a single string.
+- To escape a backtick in a template literal, put a backslash (\) before the backtick.
+
+## Tagged templates
+
+- Calls the function with array of string values as the first argument and substitution values as subsequent arguments.
+- Tagged template literal may not result in a string.
+
+Syntax: `${JS-expression}`
+Usage: Used inside curly braces of JSX.
+
+## Nesting of templates
+
+Within a backtick-delimited template, it is simple to allow inner backticks by using them inside an `${expression}`
+placeholder within the template.
+
+## Tagged templates and escape sequences
+
+## Raw strings
+
+## Shorthand property names
+
+`{a, b, c} is same as {a: a, b: b , c: c}`
+
+## Object initializer pattern
+
+## Object literal notation vs JSON
+
+- JSON permits only property definition using "property": value syntax.
+- The property name must be double-quoted, and the definition cannot be a shorthand.
+
+## Shorthand method names
+
+```javascript
+let o = {
+  property: function (parameters) {},
+  get property() {},
+  set property(value) {},
+}
+
+// Same as
+// Shorthand method names (ES2015)
+let o = {
+  property(parameters) {},
+}
+```
+
+## Computed property names
+
+```js
+let i = 0
+let a = {
+  ['foo' + ++i]: i,
+  ['foo' + ++i]: i,
+  ['foo' + ++i]: i,
+}
+```
+
+## Arrow functions
+
+## Object Destructuring
+
+- If you use assignment without variable declaration, you need to use parentheses.
+
+```js
+const creatures = {
+  human: ['👨🏿‍💼', '👩🏼‍💼', '🧑🏻‍💼', '👩🏾‍💻', '🧑‍💻'],
+  supernatural: ['👾', '🤖', '👽', '👹', '👺'],
+}
+let human, supernatural
+;({ human, supernatural } = creatures)
+```
+
+- React developers use this pattern with `props`, which are the input for React components.
+
+```js
+function MyReactComponent({ name, age }) {
+  // ...
+}
+```
+
+- You can also define default values while unpacking fields from the assigned object.
+
+```js
+const { human: people = ['👨🏿‍💼'], supernatural = ['👾', '👽'] } = {
+  human: ['👨🏿‍💼', '👩🏼‍💼', '🧑🏻‍💼'],
+}
+console.log(people) // ["👨🏿‍💼", "👩🏼‍💼", "🧑🏻‍💼"]
+console.log(supernatural) // ["👾", "👽"]
+
+// Nesting is also possible while destructuring
+const creatures = {
+  animals: {
+    wildlife: ['🦂', '🐍'],
+    pet: ['🐕', '🐈'],
+  },
+  human: ['👨🏿‍💼', '👩🏼‍💼', '🧑🏻‍💼'],
+}
+const {
+  animals: { pet },
+} = creatures
+console.log(pet) //  ["🐕", "🐈"]
+```
+
+## Array destructuring
+
+With the help of the [destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment), an array can be unpacked in such a way that its values are extracted into distinct variables.
+
+```js
+const array = [1, 2]
+const [varForVal1, varForVal2] = array
+console.log(varForVal1) // 1
+console.log(varForVal2) // 2
+
+// variables are assigned from the left to the right of
+// the array, so order is maintained.
+const [fruit, veggie] = ['🍓', '🥦', '🍕', '🌮', '🥪', '🍔']
+console.log(fruit) // 🍓
+console.log(veggie) // 🥦
+
+// You can also skip values under consideration of the order.
+const [fruit, , pizza, , , burger] = ['🍓', '🥦', '🍕', '🌮', '🥪', '🍔']
+console.log(fruit) // 🍓
+console.log(pizza) // 🍕
+console.log(burger) // 🍔
+
+// You can also assign multiple values at
+// once with the rest pattern.
+const [fruit, veggie, ...junkfood] = ['🍓', '🥦', '🍕', '🌮', '🥪', '🍔']
+console.log(fruit) // 🍓
+console.log(veggie) // 🥦
+console.log(junkfood) // ["🍕", "🌮", "🥪", "🍔"]
+
+// Array destructuring allows for default values.
+const getFood = () => ['🍓', '🥦']
+const [fruit, veggie, junkfood = '🍕'] = getFood()
+console.log(fruit) // 🍓
+console.log(veggie) // 🥦
+console.log(junkfood) // 🍕
+```
+
+## Array destructuring in React
+
+- Used in hooks like useState.
+
+## Array destructuring vs object destructuring
+
+- Array destructuring allows for custom variable names.
+- In contrast, with object destructuring, you need to rename the variables.
+
+## Parameter defaults
+
+## Spread operator
+
+- The [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) (...) allows an iterable item (e.g., an array) to be extracted into its parts and plugged into places that expect individual elements. With this syntax, you can split up object properties or array elements.
+
+```Js
+// Use case#1: Pass each element of an array
+// as individual function argument.
+const numbers = [11, 5, 3, 1, 26];
+// Math.max expects to be called like Math.max(11,5,3,1,26)
+console.log(Math.max(...numbers)); // 26
+
+// Use case#2: Copy object properties to create a new object
+const food = {
+  breakfast: ["🥞", "🧇"],
+  lunch: ["🍔", "🍟", "🍕"]
+};
+const foodAndDrinks = {
+  ...food,
+  drinks: ["🍷", "🍹", "🍺", "🥃"],
+};
+
+// Create a copy of an array.
+const food = ["🥞", "🧇", "🍔", "🍟", "🍕"];
+const copy = [...food];
+```
+
+## Spread operator in React
+
+- In React, you should not manipulate state objects directly. Instead, you need to create a brand-new state object whenever you want to update the state.
+
+```Js
+const restaurantState = {
+  drinks: ["🍷", "🍹", "🍺", "🥃"],
+  food: ["🥞", "🧇", "🍔", "🍟", "🍕"],
+  lastOrder: null
+}
+// the customer ordered a 🍔
+const stateAfterOrder = {
+  drinks: [...restaurantState.drinks], // copy drinks
+  food: [...restaurantState.food], // copy food
+  lastOrder:  "🍔" // override lastOrder
+}
+```
+
+## Rest operator
+
+- With the [rest operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) (...), you can merge a list of function arguments into an array. While the syntax of the rest operator is the same as the spread operator, their place of use makes all the difference.
+- Its purpose is to merge a list of values into an array.
+- It is a common practice to use the rest operator in combination with the spread operator. This combines multiple arguments into an array to distribute the entries again in another place inside of a React component.
+
+## ESModules
+
+## Ternaries
+
+## Array Methods
+
+## Nullish coalescing operator
+
+## Optional chaining
+
+## Promises and async/await
+
+## Array methods
+
+- `findIndex()`: Returns the index of the first element in the array that satisfies the provided testing function. Otherwise, it returns -1, indicating that no element passed the test.
