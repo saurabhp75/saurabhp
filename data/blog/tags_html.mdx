@@ -10,7 +10,7 @@ summary: 'Introduction to HTML'
 
 ## Most common tags
 
-- `header`: Header tag
+- `header`: Header tag.
 - `footer`: Contains information about the page, such as copyright information.
 - `div`: `<div>` is a generic tag that can be used to group elements.
 - `ul`: Unordered list.
@@ -25,7 +25,7 @@ summary: 'Introduction to HTML'
 ## Block level elements feature
 
 - Width of 100% of their parents.
-- They have height of 0.
+- They should have height of 0 for responsive design.
 - The height grows to match the content.
 - They stack one on top of another.
 
@@ -35,6 +35,9 @@ summary: 'Introduction to HTML'
 - Padding adds the background around the content of element.
 
 ## margin
+
+- We can individually control the margin, for eg `margin-left`, `margin-right`, `margin-top` etc.
+- Mostly short forms are used.
 
 ```css
 /* margin can have upto 4 attributes and has long & short forms */
@@ -48,6 +51,8 @@ margin: 1em auto 2em; /* top | horizontal | bottom */
 ## Padding
 
 - Controls the positioning of content inside the element.
+- We can individually control the padding, for eg `padding-left`, `padding-right`, `padding-top` etc.
+- Mostly short forms are used.
 - Works just like margin in terms of long and short form syntax.
 
 ## Centering the element
@@ -58,11 +63,12 @@ margin: 1em auto 2em; /* top | horizontal | bottom */
 ## Borders
 
 - Similar to "stroke" in vector software.
-- It has 3 properties viz, border-width, border-style, border-color.
-- Short form (order doesn't matter): border: border-width, border-style, border-color
+- It has 3 properties viz, `border-width`, `border-style`, `border-color`.
+- Short form (order doesn't matter): `border: border-width, border-style, border-color;`
 - If we omit color in the shorthand form, it defaults to text color.
 - We can individually control the border, for eg border-left, border-right, border-top etc.
-- border-[top|bottom|left|right]-[color|style|width].
+- border-[top|bottom|left|right]-[width|style|color].
+- Border will be invisible if its style is not defined. This is because the style defaults to none.
 
 ## border-color
 
