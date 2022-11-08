@@ -10,9 +10,9 @@ summary: 'Introduction to HTML'
 
 ## Most common tags
 
-- `header`: Header tag.
+- `header`: Header tag. Different from `head` tag in html.
 - `footer`: Contains information about the page, such as copyright information.
-- `div`: `<div>` is a generic tag that can be used to group elements.
+- `div`: A generic tag that can be used to group elements.
 - `ul`: Unordered list.
 - `ol`: Ordered list.
 - `li`: List item.
@@ -20,14 +20,40 @@ summary: 'Introduction to HTML'
 - `main`: Main content.
 - `section`: Section of the page.
 
-`Note`: Most elements are block level elements by default.
+# block vs inline elements
 
-## Block level elements feature
+## Block elements features
 
-- Width of 100% of their parents.
-- They should have height of 0 for responsive design.
-- The height grows to match the content.
-- They stack one on top of another.
+- The box will break onto a new line. They have their own row and stack on top of each other.
+- The `width` and `height` properties are respected/available.
+- `Padding`, `margin` and `border` will cause other elements to be pushed away from the box.
+- In most cases, the box will become as wide as its container, filling up 100% of the space available.
+
+### **Note**:
+
+- The height of block level elements should not be specified. That is, they should have height of 0 for responsive design. In this case the height grows to match the content.
+- Most elements are block level elements by default.
+- The `display` property determines whether the element is `block`, `inline`, `flex`, `inline-block` etc.
+- `display: block|inline;` sets the `outer display` type of the element.
+- `display: flex|inline-flex;` sets the `inner display` type of the element.
+
+## Inline elements features
+
+- The box will not break onto a new line.
+- The `width` and `height` properties will not apply (not available).
+- Vertical padding, margins, and borders will apply but will not cause other inline boxes to move away from the box.
+- Horizontal padding, margins, and borders will apply and will cause other inline boxes to move away from the box.
+
+## Inline-block elements
+
+- An element set to inline-block is very similar to inline in that it will set inline with the natural flow of text (on the “baseline”). The difference is that you are able to set a `width` and `height` which will be respected.
+
+## CSS box model
+
+- Browser renders each element as a box.
+- CSS properties determines the size, position and other properties (color, background, border size, etc) of these boxes.
+- `box-sizing: border-box;`: The rendered size of the element will be same as specified width and height.
+- `box-sizing: content-box;`: The rendered size of the element will be sum of content width|height plus padding and border.
 
 ## margin vs padding
 
@@ -43,7 +69,7 @@ summary: 'Introduction to HTML'
 /* margin can have upto 4 attributes and has long & short forms */
 
 margin: 1em|-3px; /* Apply to all four sides */
-margin: 2px 1em auto; /* top | right | bottom | left */
+margin: 2px 1em 0 auto; /* top | right | bottom | left */
 margin: 5% auto; /* vertical, horizontal */
 margin: 1em auto 2em; /* top | horizontal | bottom */
 ```
@@ -57,7 +83,7 @@ margin: 1em auto 2em; /* top | horizontal | bottom */
 
 ## Centering the element
 
-- Horizontal centering: `margin: 0, auto;` // Requires that the element width is specified.
+- Horizontal centering: `margin: 0, auto;`. This requires that the element width is specified.
 - Vertical margin set to auto means 0 margin, it may not center the element vertically.
 
 ## Borders
@@ -66,7 +92,7 @@ margin: 1em auto 2em; /* top | horizontal | bottom */
 - It has 3 properties viz, `border-width`, `border-style`, `border-color`.
 - Short form (order doesn't matter): `border: border-width, border-style, border-color;`
 - If we omit color in the shorthand form, it defaults to text color.
-- We can individually control the border, for eg border-left, border-right, border-top etc.
+- We can individually control the border, for eg `border-left`, `border-right`, `border-top etc`.
 - border-[top|bottom|left|right]-[width|style|color].
 - Border will be invisible if its style is not defined. This is because the style defaults to none.
 
@@ -74,7 +100,6 @@ margin: 1em auto 2em; /* top | horizontal | bottom */
 
 ```css
 /* Works just like margin & padding in terms of long and short form syntax. */
-
 border-color: red; /* All sides */
 border-color: red #32a1ce; /* Vertical and horizontal */
 border-color: red rgba(170, 50, 220, 0.6) green; /* Top horizontal and bottom */
@@ -85,7 +110,6 @@ border-color: red yellow green transparent; /* top | right | bottom | left */
 
 ```css
 /* Works just like margin & padding in terms of long and short form syntax. */
-
 border-style: none;
 border-style: dotted;
 border-style: inset;
@@ -105,45 +129,65 @@ border-width: 2ex 1.25ex 0.5ex;
 border-width: 0 4px 8px 12px;
 ```
 
-### Building responsive UI (CSS)
+# Building responsive UI (CSS)
 
-## Why we should never specify the height of a block level element:
+## Day1, using percentages and avoiding heights
 
-When the width of a block level element is specified, it can grow in height to accomodate the content(text?).
-But when height of a block element is specified the content can overflow the element, if the content is large.
-Also the next element will not be spaced from the overflowing content but by the conatiner element itself.
+- Websites are responsive by default. So if it's not working, we have specified something in CSS which has made it so.
 
-## Responsive layouts
+- For block elements, use percentage for width as it is responsive by default.
+- If we specify a value (other than percentage) for width, then we have to use media queries manually to center the element for different devices.
+- Specifying width can also be avoided in certain contexts.
+- If the specified width of a block element is more than the device/viewport width, then it will show scroll window.
+- Avoid specifying height of a block level element. As it may cause the content to overflow in very narrow viewport.
+
+**Note**: By default, the `font-size` in a browser is 16px.
+
+### Why we should never specify the height of a block level element:
+
+- When height of a block element is specified the content can overflow the element, if the content is large.
+- Also the next element will not be spaced from the overflowing content but by the container element itself.
+
+### Responsive layouts
 
 - The width should be in percentage of the parent element.
 - DON'T specify the height of an element, use padding instead.
-- For padding and font size, use em.
-- For other attributes use rem.
+- For `padding` and `font-size`, use `em`.
+- For other attributes use `rem`.
 
-## em vs rem
+## Day2, getting familiar with relative units
 
-## em
+### em vs rem
 
-- For font-size, em is the font size of the parent element.
-- For other attributes like margin, padding, width and height etc, em is the font-size of the element itself.
-- It is used for elements internal consistency of the element like padding and font-size.
-- It can be used for button where the padding changes with the font-size.
-- You should not set font-size using em,
+### em
+
+- For `font-size`, `em` is the font-size of the parent element.
+- For other attributes like `margin`, `padding`, `width` and `height` etc, `em` is the `font-size` of the element itself.
+- It is used for elements internal consistency of the element like `padding` and `font-size`.
+- It can be used for `button` where the `padding` changes with the `font-size`.
+- You should not set `font-size` using `em`, but use `rem` instead. This avoids the issue of compounding in nested elements.
 
 ```css
 btn {
-font-size: 2.5em; /_ 2.5 times of the font-size of the parent element._/
-margin: 2em; /_ 2 times the font-size of current element, ie 5 times the size of parent element._/
+  /* 2.5 times the font-size of the parent element. */
+  font-size: 2.5em;
+  /* 2 times the font-size of current element, 
+  ie. 5 times the size of parent element. */
+  margin: 2em;
 }
 ```
 
-## rem
+### rem
 
-- It is the font size of the root element(html).
-- It is same for font-size and other attributes like padding, margin etc.
-- It is used for elements external consistency of the element like margin.
+- It is the `font-size` of the root element(html).
+- It is same for `font-size` and other attributes like `padding`, `margin` etc.
+- It is used for elements external consistency of the element like `margin`.
 
-Note: If a font-size of an element is not defined, it is searched in the parent and so on.
+**Note**: If a `font-size` of an element is not defined, it is searched in the parent and so on.
+
+## Day3, max-width
+
+\_ We should set `max-width` of an element to avoid stretching for big screen-size.
 
 - box-sizing
 - margin
@@ -158,10 +202,6 @@ Note: If a font-size of an element is not defined, it is searched in the parent 
 - height
 - width
 - display
-
-background: linear-gradient(to left, #c2e59c , #64b3f4);
-
-#### CSS grid
 
 ## Gradients
 
@@ -213,27 +253,15 @@ backrgound-image: repeating-linear-gradient(red, red 10px, blue 10px, blue 20px)
 - Easier to guess just by looking at them.
 - Easy for designer to tweak colors.
 
-## Why we use box-sizing property
-
-`box-sizing`: border-box | content-box
-
 ### Semantic markup
 
 - Meaningful tags instead of div.
 - For eg. `header`, `section`, `nav`, `footer` etc.
 
-### block vs inline elements
-
-- Block elements have their own row.
-- For `span` is inline and `div` is block level element.
-- `inline-block` elements have width and height.
-- `inline` elements have only margin-left, margin-right, padding-left, padding-right attributes.
-- `inline-block` has margin, padding, height, width attributes.
-
 ### Opening and closing tags
 
-- Example of Opening and closing tags: <h1></h1>
-- Example of Single opening and closing tag: <br/>
+- Example of Opening and closing tags: `<h1></h1>`
+- Example of Single opening and closing tag: `<br/>`
 
 ### paragraph (p)
 
@@ -394,7 +422,7 @@ Inline style and ! important.
 - Everything in css is a box.
 - Padding: Between `content box` and border.
 - Border:
-- Margin: Between border and border
+- Margin: Between border and border.
 - When we specify width or height of an element, it is width of the content.
 - The total width of the element also includes, padding, border and margin.
 
@@ -454,19 +482,12 @@ Inline style and ! important.
 ## Position
 
 - `position`: static/relative/absolute.
-
 - top, bottom, left, right affect position of the element.
-
 - `static` is default.
-
 - `relative`: It is still in document flow and does not take other documents place. position relative to itself.
-
 - `absolute`: It's taken out from document flow, and positioned relative to positioned parent if any or start of the container(body)
-
 - positioned element: Element with position attribute other than static.
-
 - `fixed`: It is positioned wet to container. ie body. Good for navbar.
-
 - `sticky`: sticks when hit the top.
 
 ## CSS transition
@@ -507,7 +528,7 @@ Provides a more efficient way to lay out, align and distribute space among `item
 The main idea behind the flex layout is to give the container the ability to alter its items’ width/height (and order) to best fill the available space (mostly to accommodate to all kind of display devices and screen sizes).
 
 - Used to arrange block elements in columns. on a page.
-- When we set display: flex, all children become columns.
+- When we set `display: flex`, all children become columns.
 
 ## flex model
 
@@ -644,45 +665,6 @@ The main idea behind the flex layout is to give the container the ability to alt
 - `max-width`: maximum of npx and below.
 
 - `CSS reset`: A CSS script to reset the default css of a browser.
-
-# XPATH
-
-**Absolute Xpath** : Begins with ‘/’  
-**Relative Xpath** : Begins with ‘//’
-
-- //input[@name='uid']: based on name attribute
-- //input[@type='text']: based on type of element
-- //label[@id='message23']: based on id of element
-- //input[@value='RESET']: based on value attribute
-- //\*[@class='barone']: based on class
-- //a[@href='http://demo.guru99.com/'] : based on href attribute
-- //img[@src='//cdn.guru99.com/images/home/java.png'] : based on source attribute
-
-- //\*[contains(@type,'sub')]
-- //\*[contains(@name,'btn')]
-- //\*[contains(@id,'message')]
-- //\*[contains(text(),'here')]
-- //\*[contains(@href,'guru99.com')]
-- //\*[@type='submit' OR @name='btnReset']
-- //input[@type='submit' AND @name='btnLogin']
-- //label[starts-with(@id,'message')]
-- //td[text()='UserID']
-
-- //label[starts-with(@id,'message')]
-- //td[text()='UserID']
-
-## xpath axes methods
-
-- //\*[@type='text']//following::input
-- //\*[text()='Enterprise Testing']//ancestor::div : selects all ancestors parents, grandparents etc
-- //\*[text()='Enterprise Testing']//ancestor::div[1] : selects first ancestor
-- //\*[@id='java_technologies']/child::li : select all child nodes
-- //\*[@id='java_technologies']/child::li[1] : selects first child node
-- //\*[@type='submit']//preceding::input
-- //\*[@type='submit']//following-sibling::input
-- //\*[@id='rt-feature']//parent::div
-- //\*[@type='password']//self::input
-- //\*[@id='rt-feature']//descendant::a
 
 ## CSS Grid
 
@@ -831,93 +813,94 @@ Grid terminology
 
 ## CSS selectors
 
-1. **Element type(‘p’ )**: Select all paragraph elements
+1. `Element type(‘p’ )`: Select all paragraph elements
 
-2. **Element ID(‘#25’)**: Select all elements with id=25
+2. `Element ID(‘#25’)`: Select all elements with id=25
 
-3. **Element Class('.text')**: Select all elements with class=text
+3. `Element Class('.text')`: Select all elements with class=text
 
-4. **Descendant combinator(‘ ‘ or ‘-’)**: eg. ‘div p’ , Select all paragraph elements (descendants) under div elements
+4. `Descendant combinator(‘ ‘ or ‘-’)`: eg. `div p` , Select all paragraph elements (descendants) under div elements
 
-5. **Child combinator(‘div>p’ )**: Select all paragraph elements whose immediate parent is div. For eg. `ul > li` will match all `<li>` elements that are nested directly inside a `<ul>` element
+5. `Child combinator(‘div>p’ )`: Select all paragraph elements whose immediate parent is div. For eg. `ul > li` will match all `<li>` elements that are nested directly inside a `<ul>` element
 
-6. Attribute(‘div[attr]’ ): Select all div elements having ‘attr’ attribute)
+6. `Attribute(‘div[attr]’ )`: Select all div elements having ‘attr’ attribute)
 
-7. Attribute value(‘div[attr=val]’): Select all div elements with attr value equal to ‘val’
+7. `Attribute value(‘div[attr=val]’)`: Select all div elements with attr value equal to ‘val’
 
-8. Universal selector ‘\*’ : Matches any type, usually ommited, eg. ‘\*.text’ and ‘.text’ are same.
+8. `Universal selector ‘*’` : Matches any type, usually ommited, eg. `*.text` and `.text` are same.
 
-9. \[attr~=value]: Elements with an attribute name of attr whose value is a whitespace-separated list of words, one of which is exactly value.
+9. `[attr~=value]`: Elements with an attribute name of attr whose value is a whitespace-separated list of words, one of which is exactly value.
 
-10. \[attr\|=value]: Represents elements with an attribute name of attr whose value can be exactly value or can begin with value immediately followed by a hyphen, \- \(U+002D). It is often used for language subcode matches.
+10. `[attr\|=value]`: Represents elements with an attribute name of attr whose value can be exactly value or can begin with value immediately followed by a hyphen, \- \(U+002D). It is often used for language subcode matches.
 
-11. \[attr^=value]: Represents elements with an attribute name of attr whose value is prefixed (preceded) by value.
+11. `[attr^=value]`: Represents elements with an attribute name of attr whose value is prefixed (preceded) by value.
 
-12. \[attr$=value]: Represents elements with an attribute name of attr whose value is suffixed (followed) by value.
+12. `[attr$=value]`: Represents elements with an attribute name of attr whose value is suffixed (followed) by value.
 
-13. \[attr\*=value]: Represents elements with an attribute name of attr whose value contains at least one occurrence of value within the string.
+13. `[attr\*=value]`: Represents elements with an attribute name of attr whose value contains at least one occurrence of value within the string.
 
-14. \[attr operator value I]: Adding an i (or I) before the closing bracket causes the value to be compared case-insensitively (for characters within the ASCII range).
+14. `[attr operator value I]`: Adding an i (or I) before the closing bracket causes the value to be compared case-insensitively (for characters within the ASCII range).
 
-15. **Adjacent sibling combinator(+)**: eg. ‘img + p’, matches the second element only if it **immediately** follows the first element, and both are children of the same parent element.
+15. `Adjacent sibling combinator(+)`: eg. ‘img + p’, matches the second element only if it **immediately** follows the first element, and both are children of the same parent element.
 
-16. **General sibling combinator(~)**: eg. ‘img ~ p’, separates two selectors and matches the second element only if it follows the first element (though not necessarily immediately), and both are children of the same parent element.
+16. `General sibling combinator(~)`: eg. ‘img ~ p’, separates two selectors and matches the second element only if it follows the first element (though not necessarily immediately), and both are children of the same parent element.
 
-17. Psuedo classes(‘:’): pseudo-class is a keyword added to a selector that specifies a special state of the selected element(s). eg. div:hover, a:visited, :checked
+17. `Psuedo classes(‘:’)`: pseudo-class is a keyword added to a selector that specifies a special state of the selected element(s). eg. div:hover, a:visited, :checked
 
-    - `active`: clicked
-    - `checked`
-    - `first`
-    - `first-child`
-    - `hover`
-    - `not()`
-    - `nth-child()`
-    - `nth-of-type(2n)`
-    - `first-of-type`
+    - `:active`: clicked
+    - `:checked`
+    - `:first`
+    - `:first-child`
+    - `:hover`
+    - `:not()`
+    - `:nth-child()`
+    - `:nth-of-type(2n)`
+    - `:first-of-type`
 
-18. Psuedo elements(‘:’ or ‘::’): pseudo-element is a keyword added to a selector that lets you style a specific part of the selected element(s). For example, ::first-line can be used to change the font of the first line of a paragraph. eg.
-    ::after,
-    ::before,
-    ::cue,
-    ::first-letter,
-    ::first-line,
-    ::selection,
-    ::slotted,
-    ::backdrop,
-    ::placeholder,
-    ::marker,
-    ::spelling-error,
-    ::grammar-error
+18. `Psuedo elements(‘:’ or ‘::’)`: pseudo-element is a keyword added to a selector that lets you style a specific part of the selected element(s). For eg., `::first-line` can be used to change the font of the first line of a paragraph. eg.
 
-19. To extract attribute(‘::attr(attributename)’): Can be used to extract href from anchor tag(a).
+    - `::after`
+    - `::before`
+    - `::cue`
+    - `::first-letter`
+    - `::first-line`
+    - `::selection`
+    - `::slotted`
+    - `::backdrop`
+    - `::placeholder`
+    - `::marker`
+    - `::spelling-error`
+    - `::grammar-error`
 
-20. **List of selectors**: Comma seperated list of selectors for eg, `div, span` will select all divs and spans.
+19. To extract `attribute(‘::attr(attributename)’)`: Can be used to extract `href` from anchor tag(a).
+
+20. `List of selectors`: Comma seperated list of selectors for eg, `div, span` will select all divs and spans.
 
 # XPATH
 
-**Absolute Xpath** : Begins with ‘/’  
-**Relative Xpath** : Begins with ‘//’
+**Absolute Xpath** : Begins with `/`  
+**Relative Xpath** : Begins with `//`
 
-- //input[@name='uid']: based on name attribute
-- //input[@type='text']: based on type of element
-- //label[@id='message23']: based on id of element
-- //input[@value='RESET']: based on value attribute
-- //\*[@class='barone']: based on class
-- //a[@href='http://demo.guru99.com/'] : based on href attribute
-- //img[@src='//cdn.guru99.com/images/home/java.png'] : based on source attribute
+- `//input[@name='uid']`: based on name attribute
+- `//input[@type='text']`: based on type of element
+- `//label[@id='message23']`: based on id of element
+- `//input[@value='RESET']`: based on value attribute
+- `//\*[@class='barone']`: based on class
+- `//a[@href='http://demo.guru99.com/']`: based on href attribute
+- `//img[@src='//cdn.guru99.com/images/home/java.png']`: based on source attribute
 
-- //\*[contains(@type,'sub')]
-- //\*[contains(@name,'btn')]
-- //\*[contains(@id,'message')]
-- //\*[contains(text(),'here')]
-- //\*[contains(@href,'guru99.com')]
-- //\*[@type='submit' OR @name='btnReset']
-- //input[@type='submit' AND @name='btnLogin']
-- //label[starts-with(@id,'message')]
-- //td[text()='UserID']
+- `//\*[contains(@type,'sub')]`
+- `//\*[contains(@name,'btn')]`
+- `//\*[contains(@id,'message')]`
+- `//\*[contains(text(),'here')]`
+- `//\*[contains(@href,'guru99.com')]`
+- `//\*[@type='submit' OR @name='btnReset']`
+- `//input[@type='submit' AND @name='btnLogin']`
+- `//label[starts-with(@id,'message')]`
+- `//td[text()='UserID']`
 
-- //label[starts-with(@id,'message')]
-- //td[text()='UserID']
+- `//label[starts-with(@id,'message')]`
+- `//td[text()='UserID']``
 
 ## xpath axes methods
 

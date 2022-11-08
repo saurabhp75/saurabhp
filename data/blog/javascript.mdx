@@ -506,6 +506,71 @@ clearInterval(setReturn).
 - Use of == and === for arrays. It actually compares the reference in memory rather than the contents of the array.
 - Use of const with array: The contents of the array can change but cannot be reassigned.
 
+## Array methods in JS
+
+- These are higher order methods and we need to pass functions in them.
+- Mostly anaonymous or arrow functions are passed.
+- `forEach`: Enable to call a function, once for each item of an array.
+  forEach is mostly replaced by for of syntax.
+- `map`: creates a new array by calling a function for eah element of the array.
+- `filter`: creates a new array with all the elements which passes the criteria of the callback function.
+  The callback function should return true or false.
+- `find`:
+- `reduce`: executes reducer function on each element resulting in a single value.
+  Callback function has accumulator and current value. Accumulator has return value of previous iteration.
+  We can pass initial value to the accumulator, which is second argument of reduce function.
+- `some`: returns true if any element pass criteria of the callback function.
+- `every`: returns true if every/ALL elements pass criteria of the callback function.
+
+```javascript
+// Empty aray
+let arr1 = []
+let arr2 = new Array()
+
+typeof arr1
+// "object"
+
+let nums = [1, 2, 3, 4]
+// numscopy points to same array object and is equal ==
+// modifying one will alter the other
+let numscopy = nums
+
+// Array iteration
+// we can also use normal for loop
+arr1.forEach(function (item, index, arr) {
+  console.log(item)
+}) // Note that index and array can also be passed.
+```
+
+### Array methods
+
+- To treat array as stack, use push pop. It modifies the array.
+- To treat array as queue, use shift/unshift. It modifies the array.
+- `arr1.push(element)`: add element at the end. We can add more than one element to the array.
+- `arr1.pop()`: removes and returns last array element.
+- `arr1.unshift(element)`: add element to front of array.
+- `arr1.shift()`: remove and return from front of array.
+- `arr1.concat(arr2)`: Concatenate arr2 to end of arr1. Doesn't modify the array, gives a new one.
+- `arr1.includes(element)`: Gives true or false, depeneding upon if the element exist in the array.
+- `arr1.reverse()`: Modifies the array.
+- `arr1.indexOf(item)`: gives index or -1.
+- `arr1.slice([[begin][, end])`: Returns copy of array. If no args are present then copy entire array.
+- `arr.slice()`: Copies a portion of the array.
+- `arr.splice()`: Remove or replace a portion of the array.
+- `arr.sort()`: Behave in non intutive way.
+
+```javascript
+// start: The index at which to start changing the array.
+// deleteCount (Optional): An integer indicating the number of elements in the array to remove from start.
+// item1, item2, ... Optional: The elements to add to the array, beginning from start.
+// returns an array containing the deleted elements.
+
+splice(start)
+splice(start, deleteCount)
+splice(start, deleteCount, item1)
+splice(start, deleteCount, item1, item2, itemN)
+```
+
 ## Arrow functions
 
 - It is a compact syntax for function expressions.
@@ -582,78 +647,6 @@ var func = (a, b, c)
 - When declared outside any object, `this` points to global (window/global) object.
 - When called using a new operator (constructor), the `this` points to the newly created object.
 - When used as a callback, then `this` refers to the execution context.
-
-## Array methods in JS
-
-- These are higher order methods and we need to pass functions in them.
-- Mostly anaonymous or arrow functions are passed.
-
-- `forEach`: Enable to call a function, once for each item of an array.
-  forEach is mostly replaced by for of syntax.
-
-- `map`: creates a new array by calling a function for eah element of the array.
-
-- `filter`: creates a new array with all the elements which passes the criteria of the callback function.
-  The callback function should return true or false.
-
-- `find`:
-
-- `reduce`: executes reducer function on each element resulting in a single value.
-  Callback function has accumulator and current value. Accumulator has return value of previous iteration.
-  We can pass initial value to the accumulator, which is second argument of reduce function.
-
-- `some`: returns true if any element pass criteria of the callback function.
-
-- `every`: returns true if every/ALL elements pass criteria of the callback function.
-
-```javascript
-// Empty aray
-let arr1 = []
-let arr2 = new Array()
-
-typeof arr1
-// "object"
-
-let nums = [1, 2, 3, 4]
-// numscopy points to same array object and is equal ==
-// modifying one will alter the other
-let numscopy = nums
-
-// Array iteration
-// we can also use normal for loop
-arr1.forEach(function (item, index, arr) {
-  console.log(item)
-}) // Note that index and array can also be passed.
-```
-
-### Array methods
-
-- To treat array as stack, use push pop. It modifies the array.
-- To treat array as queue, use shift/unshift. It modifies the array.
-- `arr1.push(element)`: add element at the end. We can add more than one element to the array.
-- `arr1.pop()`: removes and returns last array element.
-- `arr1.unshift(element)`: add element to front of array.
-- `arr1.shift()`: remove and return from front of array.
-- `arr1.concat(arr2)`: Concatenate arr2 to end of arr1. Doesn't modify the array, gives a new one.
-- `arr1.includes(element)`: Gives true or false, depeneding upon if the element exist in the array.
-- `arr1.reverse()`: Modifies the array.
-- `arr1.indexOf(item)`: gives index or -1.
-- `arr1.slice([[begin][, end])`: Returns copy of array. If no args are present then copy entire array.
-- `arr.slice()`: Copies a portion of the array.
-- `arr.splice()`: Remove or replace a portion of the array.
-- `arr.sort()`: Behave in non intutive way.
-
-```javascript
-// start: The index at which to start changing the array.
-// deleteCount (Optional): An integer indicating the number of elements in the array to remove from start.
-// item1, item2, ... Optional: The elements to add to the array, beginning from start.
-// returns an array containing the deleted elements.
-
-splice(start)
-splice(start, deleteCount)
-splice(start, deleteCount, item1)
-splice(start, deleteCount, item1, item2, itemN)
-```
 
 ### Objects in JS
 
@@ -744,7 +737,7 @@ let objClone = { ...obj }
 ### Rest params
 
 - Opposite of spread operator, but have same syntax.
-- Collects all remaining arguments into an actual array, with all methods available unlike arguments.
+- Collects all remaining arguments into an actual array, with all methods available unlike `arguments`.
 - Rest syntax collects multiple elements and "condenses" them into a single array element.
 - Should be declared as last parameter to collect all remaining arguments.
 
