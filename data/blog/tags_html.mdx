@@ -553,12 +553,14 @@ The main idea behind the flex layout is to give the container the ability to alt
 ## flexbox item properties
 
 - `order`: Defines the sequence of item in container, default is as specified in source.
-- `flex-grow`: Its an unitless number. defines the ability for a flex item to grow if necessary. Default is 0.
-- `flex-basis 200px`: Defines the default/initial size of an element before additional space is distributed. The default is `auto`.
-- `flex-shrink`: Its an unitless number. Defines the ability for a flex item to shrink if necessary. Default is 1.
+- `flex-grow`: Its an unitless number. defines the ability for a flex item to grow if necessary. Default is 0 (no grow).
+- `flex-basis 200px`: Defines the default/initial size of an element across the main axis, before additional space is distributed. The default is `auto`. It is almost same as width.
+- `flex-shrink`: Its an unitless number. Defines the ability for a flex item to shrink if necessary. Default is 1 (shrink enabled).
 - `flex`: This is the shorthand for `flex-grow`, `flex-shrink` and `flex-basis` combined. The default is `0 1 auto`, but if you set it with a single number value, like `flex: 5;`, that changes the flex-basis to 0%, so it’s like setting flex-grow: 5; flex-shrink: 1; flex-basis: 0%;.
 - `align-self: auto | flex-start | flex-end | center | baseline | stretch;` Similar to `align-items` but it applies to single item.
 - Flexbox can push things away: It’s a rather unique feature of flexbox that you can, for example, put margin-right: auto; on an element and, if there is room, that element will push everything else as far away as it can go can.
+
+### **Note**: `flex-grow:2;` does not mean that the element will be double the width of element with `flex-grow: 1;`. Same holds true for `flex-shrink` property. It’s their rate of shrinking and growing and not the final rendered size.
 
 # CSS Grid
 
