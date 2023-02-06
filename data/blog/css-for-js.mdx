@@ -1,0 +1,655 @@
+---
+title: 'CSS for JS'
+date: '2019-10-11'
+tags: ['CSS', 'Fronted']
+draft: false
+summary: 'Introduction to CSS'
+---
+
+# 0: Fundamentals recap
+
+## CSS building blocks
+
+- `rule/style`: Collection of _declarations_ targetting on or more - selectors.
+- `declaration`: property + value
+- `selector`:
+- `property`:
+- `stylesheet`: collection of rules.
+- `unit`: for eg. `px`, `rem`, `%`.
+
+```css
+/* rule/style */
+.code-snippet {
+  padding: 32px; /* First Declaration */
+  white-space: pre-wrap; /* Second Declaration */
+}
+
+/* 
+.code-snippet: selector
+padding: property
+*/
+```
+
+## media queries
+
+```css
+/* CSS */
+@media (condition) {
+  /* Some CSS that'll run if the condition is met. */
+}
+```
+
+## Responsive design
+
+- `Mobile first design`: Define CSS default rules for small screens and exceptions for bigger screens. For eg `@media (min-width: 600px) { rules for bigger screens }`
+- `max-width: 1080px`: Apply the rule only when width is less than 1080px.
+- `min-width: 768px`: Apply the rule only when the width is greater than 768.
+
+## What is an iframe
+
+- An embedded HTML document within the main HTML document.
+- It's a page within a page.
+
+## Selectors: Pseudo classes vs pseudo elements
+
+- Pseudo classes targets specific state of an element.
+- Pseudo classes use _1 colon_.
+- Pseudo elements targets _sub-elements_ within an element.
+- Pseudo classes use _2 colon_, though some also support one colon.
+- pseudo-elements selectors target elements in the DOM that aren't explicitly created with HTML tags.
+
+## Pseudo classes
+
+- `hover`:
+- `focus`:
+  - interactive elements like buttons, links, and form inputs.
+  - When we interact interactive elements (either by clicking on it or tabbing to it), it becomes focused.
+- `checked`: Only applies to checkboxes and radio buttons.
+- `first/last-child`: match the first/last child within a parent container.
+- `first/last-of-type`: first/last type in the parent container.
+
+## pseudo elements
+
+- `::placeholder`: targets placeholder text in form input.
+- `::before/after`: These pseudo-elements are added inside the element, right before and after the element's content.
+
+## children vs descendents
+
+- `Child` is only _1 level_ down from the parent.
+- `Descendent` can be _any levels_ down.
+
+## Combinators in selectors
+
+- `space`: for eg `nav a`, means any anchor tag which is **descendent** of nav.
+- `>`: Selects only direct **child** element.
+
+## Color formats
+
+- `Hex codes`: For eg `#FF0000`.
+- `keyword`: for eg `red`.
+- `HSL(preferred)`: For eg `hsl(0deg, 100%, 50%)`
+  - `hue`: pigment type,
+  - `saturation`: pigment saturation,
+  - `lightness`: white to black
+- `hsla`: Adds transparency. For eg `hsl(340deg 100% 50% / 0.75);`
+- `rgb`: For eg `rgb(255,0,0)`, gives opaque colors
+- `rgba`: Adds transparency, through alpha channel (0 to 1). 1 is opaque, 0 is transparent. For eg `rgba(255, 0, 0, 0.5);`
+
+## Units
+
+- `px`:
+- `em`: Not used much often. It compounds.
+- `rem`: relative to root element (html).font-size should be in rem. not px or em. if px then font scaling wont work.
+- `Percentage`: Often used with width/height, as a way to consume a portion of the **available space**.
+
+  **Note**: You shouldn't actually set a px font size on the html tag. This will override a user's chosen default font size.
+  The Web Content Accessibility Guidelines (WCAG) state that in order to be accessible, a site should be usable at 200% zoom.
+  TBD: If you really want to change the baseline font size for rem units, you can do that using percentages. Using px will mess up the font scaling.
+
+1rem was equal to 16px? That's only true if the user hasn't touched their default font size!
+
+## where to use rem or px
+
+- Should this value scale up as the user increases their browser's default font size?.
+- font-size should use rem units instead of px, this enables font scaling by the user.
+
+## browser zooming vs font scaling
+
+- Zooming affects everything except viewport units (like vw and vh).
+
+## typography
+
+- `Font family`: collection of charcter sets for different `font weights` and `variants` (normal and italics).
+- `Web safe fonts`: These are fonts that come pre-installed on all major operating systems, like `Arial`, `Times New Roman`, `Tahoma`.
+
+## Font style/category
+
+- Font family come in different styles, the 2 most popular are `serif` and `sans-serif`.
+- `Serif`: Has adornment at the edge. Common in print media but not on web.
+- `Sans-serif`: Used on web, they don't have the adornments and don't look aged.
+- If we specify a category (serif, sans-serif), the OS will use its default font for that category.
+- For eg, if we specify `sans-serif`, Windows 11 will use ``Segoe UI`, while MacOS Ventura uses `SF Pro`.
+- It is useful if we want our site/app to feel native to it splatform.
+- but in general, we want to have our own branding! We can do this with a `web font`.
+
+## web fonts
+
+- It is a custom font that we load in our CSS, allowing us to use any font we like.
+
+### font stack
+
+- font-family: 'Roboto', Arial, sans-serif;
+- The idea is that the browser will use the first available font from the list.
+- If Roboto isn't available (eg. because the download failed, or it's simply taking too long), we'll use Arial instead. And if the user's device doesn't have Arial, it'll fall back to the system-default sans-serif font.
+
+## Typical text formatting
+
+- Bold: Use `font-weight` property. The default/normal value for font weight is `400`, and the`bold` keyword maps to `700`.
+- Italic: font-style: italic;
+- Underlined text: text-decoration: underline|none;
+
+## styles and semantics
+
+- CSS change the cosmetic presentation of text, but it doesn't affect the semantic meaning of the markup.
+- For that, we need to use specialized HTML tags.
+- Used for screen readers and accessibility.
+- Used for `copy`, ie the text content of site/app.
+- Does not apply to UI elements like input labels. Here we can use CSS.
+- `<strong>`: Used for dritically important or urgent text.
+- `<em>`: Used to emphasise the text.
+
+## Alignment
+
+- `text-align: left|right|center`
+- Not used for other elements like image etc.
+
+## Text transforms
+
+- text-transform: uppercase|capitalize;
+
+## Spacing
+
+- `letter-spacing: 3px;`
+- `line-height: 1.5`: Takes a unitless number, which is related to font-size.
+- To comply with accessibility guidelines(WCAG), body text should have a minimum line-height of 1.5.
+
+# 1:Rendering logic-1
+
+## user-agent stylesheet
+
+- Each browser includes their own stylesheet. FOr eg anchor tag has underline and certain color and pointer.
+
+## Inheritance
+
+- Certain CSS properties inherit from parent to child element like color, others don't like border.
+- Most of the properties that inherit are typography-related, like color, font-size, text-shadow, and so on.
+
+## Forcing inheritance
+
+- We can force a property to be inherited from parents by specifying `inherit`, for eg. color: inherit;
+
+## The Cascade
+
+- Rules declared later are applied first
+
+## Specificity
+
+- Need to learn it by heart, modern tooling takes care of this.
+- In component based framework, the CCS is localised with the componenet.
+
+```javascript
+const appliedStyles = {
+  ...inheritedStyles,
+  ...tagStyles,
+  ...classStyles,
+  ...idStyles,
+  ...inlineStyles,
+  ...importantStyles,
+}
+```
+
+## Block and Inline Directions
+
+## Logical properties
+
+- These are used because not all languages are left to right, top to bottom.
+- The main selling point for logical properties is internationalization.
+- margin-block-start: 1em;
+- margin-block-end: 1em;
+- margin-inline-start: 0px;
+- margin-inline-end: 0px;
+
+# Box model
+
+## The four aspects that make up the box model are:
+
+- Content
+- Padding
+- Border
+- Margin
+
+## Box Sizing
+
+### Note
+
+The `default` value for the width property is `auto`. By default, for most elements,
+this means “automatically grow to fill as much space as possible”.
+
+## Flow Layout
+
+- Flow layout is the default layout mode.
+- Other layout modes are `flexbox`, and `Grid`.
+
+### Two main element types in Flow layout
+
+- `Block elements`: headings, paragraphs, footers, asides. The chunks of content that make up a page.
+- `Inline elements`: links, or a string of bold text. Generally, inline elements are meant to highlight bits of text, or elements within a block container.
+- In flow layout, block elements stack in the block direction, and inline elements stack in the inline direction.
+
+### Block elements
+
+- content box greedily expands to fill the entire available horizontal space.
+- elements that are display: block will stack in the block direction, regardless of their size.
+- To force it to shrink down to the minimum size required for the text, We can use special width keyword fit-content.
+
+### Inline elements
+
+- You can shift things in the inline direction with `margin-left` and `margin-right`.
+- you can't give it a width or height.
+- Inline elements can line-wrap and can produce shapes other than boxes.
+- This helps explain why certain CSS properties aren't available for inline elements. What would it even mean to increase the vertical margin on a shape like this?
+
+### Inline-block
+
+- properties like width and margin-top work on inline-block elements.
+- Inline-block doesn't line-wrap.
+
+### Replaced elements
+
+- These elements are all technically inline, but they're special: they can affect block layout. You can give them explicit dimensions, or add some margin-top.
+- A replaced element is one that embeds a "foreign" object.
+- This includes: `<img />, <video />, <canvas />`.
+
+## Inline elements have magic space
+
+- Inline elements adds a height to the container elements as they are treated as text. Use display:block in inline element or line-height:0 on container element to remove this space.
+- HTML is space-sensitive, at least to an extent. this issue is specific to Flow layout.
+- Other layout modes, like Flexbox, ignore whitespace altogether.
+
+# Width algorithms
+
+- Block elements have a default width value of auto, not 100%.
+- percentage-based widths are based on the parent element's content space.
+- `width: auto`: Works very similar to margin: auto; it's a hungry value that will grow as much as it's able to, but no more. It will respect margin etc.
+- `width: 100%`: Will fill the container and don't respect margin etc.
+
+## Keyword values
+
+- Measurements (100%, 200px, 5rem)
+- Keywords (auto, fit-content)
+
+## Intrinsic vs extrinsic value
+
+- Intrinsic value: Based on content of the element, for eg min-content.
+- Extrinsic value: Based on the space made available by element's parent for eg, auto.
+
+### min-content
+
+- we want our element to become as narrow as it can, based on the child contents.
+
+### max-content
+
+- The element's width will be the smallest value that contains the content, without breaking it up.
+- it never adds any line-breaks.
+
+### fit-content
+
+- If that width can fit within the parent container, it behaves just like max-content, not adding any line-breaks.
+- If the content is too wide to fit in the parent, however, it adds line-breaks as-needed to ensure it never exceeds the available space. It behaves just like width: auto.
+
+## min-width max-width
+
+- We can add constraints to an element's size using min-width and max-width.
+- they let us mix units. We can specify constraints in pixels, but set a percentage width.
+
+### Figures and captions
+
+- `<figure>`: allows us to display any sort of **non-typical** content: images, videos, code snippets, widgets, etc.
+- It also lets us caption that content with `<figcaption>`.
+- `<figure>` elements are block-level elements, which means they fill the available horizontal space.
+
+# Height Algorithms
+
+- Default "height" behaviour is to be as small as possible while fitting all of the element's content.
+- We generally want to avoid setting fixed heights (to prevent overflows).
+- Having a full-height container is an important pre-requisite.
+
+## Setting the minimum height to 100% of browser window
+
+- `min-height:100%`: This doesn't work because the parent element (body) does'nt have a specific height so it uses the default behaviour: start as shorts as possible while still containing all children.
+- So body depends on children and child elements is depending on parent.
+- Solution: Set the height of all the parent upto html as 100%. Then put min-height:100% on the element.
+
+## Why does height: 100vh doesn't work
+
+- In mobile devices scrolling changes the vh.
+- the address bar and footer controls slide away, yielding their space to the content.
+
+## Important difference between width and height
+
+- Width looks up the tree, while height looks down the tree.
+- An element's width is calculated based on its parent's size, but an element's height is calculated based on its children.
+
+Note: `margin:auto` behaves differently in flex layout.
+
+## Margin vs padding
+
+- Margin is meant to increase the distance between siblings.
+- Margin is not meant to increase the gap between a child and its parent's bounding box; that's what padding is for.
+- Margin will always try and increase distance between siblings, even if it means transferring margin to the parent element.
+
+# Margin Collapse
+
+- Adjacent margins will **sometimes** "collapse", and overlap.
+- This is unlike padding and border.
+
+## Rules of Margin Collapse
+
+### Rule:1
+
+- Only vertical margins collapse (horizontal writing mode).
+- More precisely only block-direction margins collapse.
+
+### Rule:2
+
+- Margins only collapse in Flow layout.
+- For other layouts(positioned, flexbox, grid) margins don't collapse.
+
+### Rule:3
+
+- Only adjacent elements have their margins collapsed.
+- If there is any element in between for eg `<br/>`, then margin won't collapse.
+
+### Rule:4
+
+- The bigger margin wins.
+
+### Rule:5
+
+- Nesting doesn't prevent collapsing.
+
+### Rule:6
+
+- Margins only collapse when they're _touching_.
+- Blocked by padding or border.
+- Blocked by a gap: When parent element has explicit height & blocks margin collapsing.
+- Blocked by a scroll container: When parent element creates scroll container with `overflow: auto` or `overflow: hidden`.
+
+### Rule:7
+
+- Margins can collapse in the same direction.
+- An extension of _The bigger margin wins_ rule.
+- For eg parent having greater margin than the child will aborb the margin.
+
+### Rule:8
+
+- More than two margins can collapse.
+- COmbination of rule5 & rule7.
+
+### Rule:9
+
+- Negative margins also collapse.
+- For eg. `margin-bottom: -25px` and `margin-top: -75px` will collapse to -75px (the greater of the two).
+- Negative and positive margin cancel each other, for eg `margin-bottom: -25px` and `margin-top: 25px` will cancel each other.
+
+### Rule:10
+
+- Multiple positive and negative margins.
+- If there are more than 2 margins involved, the algorithm looks like this:
+  - All of the positive margins collapse together (eg. 10px and 50px collapse into a single 50px margin).
+  - All of the negative margins collapse together (eg. -20px and -30px collapse into a single -30px margin).
+  - Add those two numbers together (50px + -30px = 20px).
+
+# Using Margin Effectively
+
+- Growing trend amongst JS dev is to forego margin altogether, and use a combination of `padding` and `layout` components instead.
+- This isn't possible for most folks. Unless you're starting a brand-new project, and the entire team is onboard.
+
+# Positioned layouts
+
+- The defining feature of positioned layout is that items can overlap.
+- Relative positioning can be applied to both block and inline elements.
+- We can opt into Positioned layout using the `position` property.
+  - `relative`
+  - `absolute`
+  - `fixed`
+  - `sticky`
+- The default value of the position property is `static`.
+- If an element is currently using Positioned layout and you want to opt out, you can set position to either static or initial.
+
+# Rendering Logic 2
+
+## Relative positioning
+
+- It does two things:
+  - Constrains certain children (we'll get to this shortly!)
+  - Enables additional CSS properties to be used.
+    - top
+    - left
+    - right
+    - bottom
+- With relative positioning, those values are relative to its natural position.
+
+## moving elements with margin vs positioning
+
+- Position doesn't impact layout. Other elements are not effected.
+- The element dimesions (width etc) also remain unchanged when using relative position.
+- The browser acts like the element is still in its original position.
+- The displacement is purely cosmetic.
+
+# Absolute Positioning
+
+- Takes an element out of document flow.
+- Absolutely-positioned elements are adjusted based on their **container**, not based on their in-flow position (like relative position).
+- We generally use absolute positioning for things like:
+  - UI elements that need to float above the UI, like tooltips or dropdowns.
+  - Decorative elements that need to be stuck in certain positions (eg. abstract illustrations).
+  - Stacking multiple elements in the same place, like a deck of cards.
+
+**Note**: Any time you want an element to be "floating above" the content, like a `tooltip` or a `dropdown` or a modal, absolute positioning is your friend.
+
+## Default placement of absolute positioned elements
+
+- If we don't give our absolute element an anchor (top/bottom/left etc), it sits in its default in-flow position.
+- Think of it as "inheriting" its default position from Flow layout.
+
+## Absolute sizes
+
+- Shrink to fit, limited by viewport.
+
+## Centering Trick: Absolute positioning
+
+- In absolute positioning both horizontal & vertical margins grow unlike normal flow where only width grow.
+- So, following will centre an absolute positioned element.
+  - absolute positioning (position: absolute)
+  - Equal distances from each edge (ideally 0px)
+  - A fixed size (defined width and height properties)
+  - Hungry margins (margin: auto)
+
+```css
+.box {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  background: deeppink;
+}
+```
+
+## The “inset” property
+
+- Setting `inset:0px` sets top, right, bottom, left simultaneously.
+
+```css
+.box {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.box {
+  inset: 0;
+}
+```
+
+## Containing Blocks
+
+- In CSS, every HTML element has a “containing block”.
+- In Flow layout, elements are contained by their parents.
+- Absolute elements can only be contained by other elements using Positioned layout.
+- Algorithm for finding conatining block of absolutely positioned element.
+  - Crawl up through the tree, look for a Positioned ancestor.
+  - The first one it finds will provide the containing block.
+  - If there aren't any Positioned ancestors, then viewport is the containing block.
+
+# Stacking Contexts
+
+- How does the browser decide which element to render "on top" when elements overlap? Depends on layout model.
+- In Flow layout, elements don't overlap much, but we can force it with negative margin.
+- In Flow layout, background colors and borders are truly meant to be in the background. The content will float on top.
+- As a general rule, positioned elements will always render on top of non-positioned ones.
+
+## Summary of stacking
+
+- When all siblings are rendered in Flow layout, the DOM order controls how the background elements overlap, but the content will always float to the front.
+- If one sibling uses positioned layout, it will appear above its non-positioned sibling (Flow, Flexbox, Grid etc.), no matter what the DOM order is.
+- If both siblings use positioned layout, the DOM order controls which element will be on top. Unlike in Flow layout, the content does not float to the front.
+
+## Z-index
+
+- If we want the layered order to be different from the DOM order, we can use the z-index property to manually reorder them.
+- z-index only works with positioned elements (Also with flex/grid children). It has no effect oelements rendered in Flow layout.
+- Elements with a higher z-index are placed closer to the viewer in 3D space.
+- Default value of the z-index is auto, which is equivalent to the number 0.
+- z-index values must be integers, they can be negative. z-index: -1 is a valid declaration, though not used often.
+
+## Stacking contexts
+
+- z-index values are not global, they are not compared across entire application.
+- Ways to create stacking context:
+  - Combining a `non-static` position with a z-index.
+  - Setting opacity to a value less than 1.
+  - Setting position to `fixed` or `sticky` (No z-index needed for these values!).
+  - Applying a mix-blend-mode other than normal.
+  - Adding a z-index to a child inside a `flex` or `grid` container.
+  - Using transform, filter, clip-path, or perspective.
+  - Explicitly creating a context with isolation: isolate.
+
+## Managing z-index
+
+- `z-index wars`: z-index inflation.
+- We can avoid it by:
+  - Relying on DOM order instead of z-index, in some case. Swapping DOM order may lead to usability/accesibility issues for interactive elements (links, buttons, form inputs).
+  - Bundle up our layers into an isolated stacking context.
+
+## Isolated stacking contexts
+
+- `isolation: isolate;`: Isolation property creates a stacking context without setting a z-index.
+- This _flattens_ all child elements.
+
+## Fixed positioning
+
+- Somewhat similar to absolute positioning, but the containing block is viewport.
+- Main advantage of fixed-position elements is that they're immune to scrolling.
+- The element is taken out of flow.
+
+## Centering with fixed position.
+
+- Similar to centering using abolute position, using anchor points.
+- This is used to center overlays like modals.
+
+## Fixed without anchor points
+
+- The element will be placed in the normal flow position, similar to absolute position, but it will not move in the viewport.
+
+## Incompatibility of fixed with certain CSS properties
+
+- Certain CSS properties, when applied to an ancestor, will mess with fixed positioning.
+- For eg. `transform` property applied to the parent. The element will behave similar to absolute positioned element.
+- Same behaviour happens when `filter` and `will-change` property are applied to the ancestor.
+
+## Overflow
+
+- Typically, if not specified, block elements have variable height, they can grow as-needed to contain their children.
+- Overflow has no effect on layout.
+
+## Overflow property values
+
+- `visible`: Default value, which allows an element's content to extend beyond its bounds.
+- `scroll`: Always show scrollbars, for both axes. This is how it works on Windows and Linux. MacOS is the outlier here.
+- Shorthand for 2 different properties: `overflow-x`, `overflow-y`.
+- `auto`: Adds a scrollbar when one is required, recommended for most situations.
+- `hidden`: Truncates anything that extends beyond the bounds of the container.
+- `clip`: Works like `hidden` but does not create a scroll container. If the container has a border-radius set, it will force the clipping to happen in both directions in certain browsers.
+
+**Note**: `overflow: hidden` is identical to overflow: scroll, but with the scrollbars removed.
+
+## Scroll Containers
+
+- When we set the overflow property to `scroll`, `hidden`, or `auto`, we create scroll container.
+- This is true whether we set the property on the X axis, the Y axis, or both.
+- when a container becomes a scroll container, it manages overflow in both directions.
+- When a child is placed in a scroll container, it guarantees that the child will never spill outside of it.
+
+## Horizontal Overflow
+
+- `white-space: nowrap;`: Lets us tweak how words and other inline/inline-block elements wrap.
+- By setting it to `nowrap`, we instruct the container to never break lines. That, in tandem with `overflow: auto`, allows us to achieve a horizontally-scrollable element.
+
+## Positioned Layout and overflow
+
+- Every element is contained by a block.
+- Most of the time, it's the parent, but absolutely-positioned elements ignore their parents unless they, too, use positioned layout.
+
+## Fixed positioning and overflow
+
+- Children with `fixed` position don't add scrollbar to parent/containing element.
+- This is because fixed positioned elements are conatined by the viewport rather than the DOM.
+- fixed-position elements are immune from being hidden with `overflow: hidden`.
+
+## Sticky Positioning
+
+- The idea is that as you scroll, an element can "stick" to the edge.
+- At that moment, it transitions from being relatively-positioned to being fixed-positioned.
+- In addition to setting position: sticky, you also need to pick at least one edge to stick to (top, left, right, bottom).
+
+## Sticky element stays in their box
+
+- The `sticky` element will **never** follow the scroll outside of its parent container.
+- This is unlike `fixed` positioned element;
+
+## Offset
+
+- Sticky element are not incorporeal unlike `absolute` and `fixed` elements.
+- Sticky elements are like relative or static elements in this regard; they're laid out in-flow.
+
+## Horizontal stickiness
+
+- This is rarely used but is theoritically possible to _create_ it when the `container` is wider than viewport.
+
+## Sticky positioning and browser support
+
+- `position: sticky` is supported across all major browsers.
+
+`@%^%#&*^$*&&*$^&* @^%&^#%&^$*%&#%&* (*#&^%@^%$#&^*&^^`
+
+## Replaced elements
+
+- They're elements whose contents are not affected by the current document's styles.
+- The position of the replaced element can be affected using CSS, but not the contents of the replaced element itself.
+- Examples of replaced elements are img, iframe, video, embed.

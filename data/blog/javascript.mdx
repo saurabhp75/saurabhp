@@ -273,11 +273,7 @@ let numberOfChickens = 6 //GOOD
   - `typeof 25;` // prints "number"
 - Operator precedence: logical, mathematical than comparison.
 - `Conditional/ternary opeartor`: for eg. age > 18 ? "Adult" : "minor";
-- `Nullish Coalescing Operator (??)`: Introduced in 2020.
-- Returns its RHS operand when its LHS operand is `null` or `undefined`, and otherwise returns its LHS operand.
-- This can be seen as a special case of the logical OR (||) operator, which returns the right-hand side operand if the left operand is any falsy value, not only null or undefined. In other words, if you use || to provide some default value to another variable foo, you may encounter unexpected behaviors if you consider some falsy values as usable (e.g., '' or 0).
-- For eg: const guest = numGuests ?? 10;
-- Optional chaining: `?.` return undefined for null or undefined values. It's linked to null coalescing operator.
+
 - `"prop "in "obj"`:
 
 ```javascript
@@ -290,9 +286,20 @@ length in itemList ? console.log('To be printed') : console.log('not printed')
 
 ## Nullish coalescing(NC) operator vs logical OR
 
-- NC gives the RHS/default value only for null or undefined LHS.
-- OR gives RHS/default for any `falsey` value.
+- `Nullish Coalescing Operator (??)`: Introduced in 2020.
+- Returns its RHS operand when its LHS operand is `null` or `undefined`, and otherwise returns its LHS operand.
+- This can be seen as a special case of the logical OR (||) operator, which returns the right-hand side operand if the left operand is any falsy value, not only null or undefined. In other words, if you use || to provide some default value to another variable foo, you may encounter unexpected behaviors if you consider some falsy values as usable (e.g., '' or 0).
+- For eg: const guest = numGuests ?? 10;
+- NC gives the RHS/default value only for `null` or `undefined` LHS.
+- `OR` gives RHS/default for any `falsey` value like `""` and `0`.
 - So if you don't want default values for `""` or `0`, use NC, as OR will give RHS for these values as well.
+
+## Optional chaining operator
+
+- Optional chaining: `?.` returns undefined for `null` and `undefined` values. It's linked to null coalescing operator.
+- It is used to access object's property or call a function in a safe way (without throwing error).
+- It is used to prevent throwing of error, when the object is `null` or `undefined`.
+- It returns `undefined` under these circumstances.
 
 ### Comparison operators
 

@@ -481,24 +481,22 @@ Inline style and ! important.
 
 ## Position
 
-- `position`: static/relative/absolute.
-- top, bottom, left, right affect position of the element.
-- `static` is default.
-- `relative`: It is still in document flow and does not take other documents place. position relative to itself.
-- `absolute`: It's taken out from document flow, and positioned relative to positioned parent if any or start of the container(body)
-- positioned element: Element with position attribute other than static.
-- `fixed`: It is positioned wet to container. ie body. Good for navbar.
-- `sticky`: sticks when hit the top.
+- `position`: static|relative|absolute|fixed|sticky.
+- `static`: Default position. The element is part of `document flow`.
+- `relative`: Same as `static`, but lets you add `top`, `right`, `bottom`, `left`, which makes the element position relative to it's normal/static postion, which is not used very often. Position of other elements is not changed as the element is not taken out of `document flow`. Other use case of `relative` is that the child elements are placed relative to this element.
+- `absolute`: Removes the element from the `document flow` (Other elements are positioned as if this element is absent) and positions wrt to the nearest parent with `position` other than `static`. Else it considers the main html element as the parent.
+- `fixed`: Similar to `absolute` except that it is always placed relative to top html element. Fixed to a place. Stays(fixed wrt viewport) there when scrolled.
+- `sticky`: Relative(when normal) + fixed(when scrolled). The values for top, right, bottom, left. Becomes active when scrolled.
 
 ## CSS transition
 
-- `transition`: 1s/ms; simple usage
+- Simple usage: `transition: 1s/ms;`
 - Used to set transition time of element, in case it's properties changes, for eg due to hover.
 
 ### Complex transition usage:
 
-- transition: property-name duration transition-function delay.
-- Transition function: ease, ease-in, ease-out, linear, step-stsrt, step-end.
+- `transition: property-name duration transition-function delay;`
+- Transition function: `ease`, `ease-in`, `ease-out`, `linear`, `step-start`, `step-end`.
 
 ## Transform property
 
@@ -560,7 +558,7 @@ The main idea behind the flex layout is to give the container the ability to alt
 - `align-self: auto | flex-start | flex-end | center | baseline | stretch;` Similar to `align-items` but it applies to single item.
 - Flexbox can push things away: It’s a rather unique feature of flexbox that you can, for example, put margin-right: auto; on an element and, if there is room, that element will push everything else as far away as it can go can.
 
-### **Note**: `flex-grow:2;` does not mean that the element will be double the width of element with `flex-grow: 1;`. Same holds true for `flex-shrink` property. It’s their rate of shrinking and growing and not the final rendered size.
+**Note**: `flex-grow:2;` does not mean that the element will be double the width of element with `flex-grow: 1;`. Same holds true for `flex-shrink` property. It’s their rate of shrinking and growing and not the final rendered size.
 
 # CSS Grid
 
