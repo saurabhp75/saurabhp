@@ -219,9 +219,9 @@ const appliedStyles = {
 - margin-inline-start: 0px;
 - margin-inline-end: 0px;
 
-# Box model
+## Box model
 
-## The four aspects that make up the box model are:
+### The four aspects that make up the box model are:
 
 - Content
 - Padding
@@ -276,7 +276,7 @@ this means “automatically grow to fill as much space as possible”.
 - HTML is space-sensitive, at least to an extent. this issue is specific to Flow layout.
 - Other layout modes, like Flexbox, ignore whitespace altogether.
 
-# Width algorithms
+## Width algorithms
 
 - Block elements have a default width value of auto, not 100%.
 - percentage-based widths are based on the parent element's content space.
@@ -318,7 +318,7 @@ this means “automatically grow to fill as much space as possible”.
 - It also lets us caption that content with `<figcaption>`.
 - `<figure>` elements are block-level elements, which means they fill the available horizontal space.
 
-# Height Algorithms
+## Height Algorithms
 
 - Default "height" behaviour is to be as small as possible while fitting all of the element's content.
 - We generally want to avoid setting fixed heights (to prevent overflows).
@@ -348,7 +348,7 @@ Note: `margin:auto` behaves differently in flex layout.
 - Margin is not meant to increase the gap between a child and its parent's bounding box; that's what padding is for.
 - Margin will always try and increase distance between siblings, even if it means transferring margin to the parent element.
 
-# Margin Collapse
+## Margin Collapse
 
 - Adjacent margins will **sometimes** "collapse", and overlap.
 - This is unlike padding and border.
@@ -410,12 +410,14 @@ Note: `margin:auto` behaves differently in flex layout.
   - All of the negative margins collapse together (eg. -20px and -30px collapse into a single -30px margin).
   - Add those two numbers together (50px + -30px = 20px).
 
-# Using Margin Effectively
+## Using Margin Effectively
 
 - Growing trend amongst JS dev is to forego margin altogether, and use a combination of `padding` and `layout` components instead.
 - This isn't possible for most folks. Unless you're starting a brand-new project, and the entire team is onboard.
 
-# Positioned layouts
+# 2: Rendering Logic II
+
+## Positioned layouts
 
 - The defining feature of positioned layout is that items can overlap.
 - Relative positioning can be applied to both block and inline elements.
@@ -447,7 +449,7 @@ Note: `margin:auto` behaves differently in flex layout.
 - The browser acts like the element is still in its original position.
 - The displacement is purely cosmetic.
 
-# Absolute Positioning
+## Absolute Positioning
 
 - Takes an element out of document flow.
 - Absolutely-positioned elements are adjusted based on their **container**, not based on their in-flow position (like relative position).
@@ -517,7 +519,7 @@ Note: `margin:auto` behaves differently in flex layout.
   - The first one it finds will provide the containing block.
   - If there aren't any Positioned ancestors, then viewport is the containing block.
 
-# Stacking Contexts
+## Stacking Contexts
 
 - How does the browser decide which element to render "on top" when elements overlap? Depends on layout model.
 - In Flow layout, elements don't overlap much, but we can force it with negative margin.
@@ -653,3 +655,12 @@ Note: `margin:auto` behaves differently in flex layout.
 - They're elements whose contents are not affected by the current document's styles.
 - The position of the replaced element can be affected using CSS, but not the contents of the replaced element itself.
 - Examples of replaced elements are img, iframe, video, embed.
+
+## Hidden Content
+
+- `display: none`:
+- `Visibility: hidden`:
+
+## Opacity
+
+## Accessibility
