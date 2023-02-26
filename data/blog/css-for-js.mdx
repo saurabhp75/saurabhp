@@ -457,7 +457,7 @@ Note: `margin:auto` behaves differently in flex layout.
 - `negative values`: `left: -10px` has the same effect as `right: 10px`.
 - Relative positioning can be applied to both `block` and `inline` elements.
 
-## moving elements with margin vs positioning
+## Moving elements with margin vs positioning
 
 - `Position` doesn't impact layout and container/element width, unlike `margin`. Other elements are not effected when using position..
 - The element dimesions (width etc) also remain unchanged when using relative position.
@@ -1085,17 +1085,139 @@ html {
 
 - Words are separated by _breaking characters_ aka _soft wrap opportunities_. Each whitespace character is a soft wrap opportunity. So is the dash character `-`.
 
+- `overflow-wrap: break-word;`: Using this we can line wrap long words. In IE, the property is called `word-wrap`.
+
+## Hyphenation
+
+- Use `hyphens: auto` to make the text automatically break on hyphens.
+
+```css
+p {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  /* Prefix for Safari */
+  -webkit-hyphens: auto;
+}
+```
+
 ## Balanced text
 
-# `%!&^*#$%#^*#(*#_(#)_)(#) !(*&#*(&`
+## Ellipsis
 
-# `^*&@^*&^#*&)*#&()#&(&#(*&_(#())))`
+- Using `text-overflow: ellipsis;`, we can trail off, leaving the sentence unfinished.
+- We need `overflow: hidden` in order for text-overflow to work.
+
+## Single-line ellipsis
+
+## Multi-line ellipsis
+
+- `-webkit-line-clamp`: Though it does require a couple of companion declarations
+
+```css
+p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-bottom: 1em;
+}
+```
+
+## Multi-line ellipsis
+
+## Print-style Layouts
+
+## Multi-Column Layout
+
+- This layout mode that automatically split content across multiple columns, in a manner that allows the parent container to grow and shrink accordingly.
+
+## Floats
+
+- Floats allow text to "wrap around" an `embedded` element.
+- Floats were a fundamental building block of the pre-Flexbox toolkit.
+- In the late '00s / early '10s, floats were all the rage. They allowed us to build common UI elements like sidebars.
+
+## Indentation
+
+- To differentiate paragraphs, books generally use indentation.
+- The first line of each paragraph is inset, and this is how our eyes can distinguish one paragraph from another.
+- There isn't any additional space between them.
+
+```css
+p {
+  text-indent: 2rem;
+}
+```
+
+## Justified alignment
+
+- `text-align: justify;`: the spacing between each word is tweaked so that each line fills the available horizontal space.
+
+## Masonry Grid with Columns
+
+## Text styling
+
+## Line length
+
+- `max-width: 50ch;`: Limits the line length to 50 characters.
+- `1ch` is equal to the width of the 0 character, at the current font size.
+
+## Text alignment
+
+## Font Stacks
+
+- The goal with a font stack is to provide a list of fonts that the browser can pick from, making sure that every user sees an acceptable font and nobody sees the (usually quite ugly) default serif browser font.
+
+```css
+.title {
+  font-family: 'Lato', Futura, Helvetica, Arial, sans-serif;
+}
+```
+
+- The last font in the list should always be the _category_ for the font, like `serif`, `sans-serif`, `monospace`, or `cursive`.
+- This ensures that if none of the other options are available, the browser will use its default font for that category.
+- Fonts can be unavailable for two reasons:
+  - The font isn't installed on the user's device.
+  - The font is a web font, and it hasn't yet been downloaded.
+
+## Web Fonts
+
+- It is a font that doesn't come pre-installed on the user's device.
+- Web fonts should be wrapped in quotes.
+- This isn't strictly required if your web font is a single word, but it's a helpful convention: it indicates which fonts in the stack are web fonts vs. local fonts.
+
+## Downside of Google fonts
+
+- Lots of amazing fonts aren't available on Google Fonts.
+- Self-hosted web fonts can perform better.
+
+## Font Loading UX
+
+## The font-display property
+
+- It controls how a font should be rendered before it's available.
+- `font-display: fallback|swap|block|optional;`
+
+## Variable Fonts
+
+```css
+/* Get variable fonts from google */
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+>
+```
+
+# 7: CSS Grid
 
 ## Grid mental model
 
 - Every cell in the same column needs to have the same width. The same is true for rows: every cell in the same row needs to have the same height.
 
 - Rows/columns are invisible markers.
+
+- The grid container itself is in flow layout. Only the children of grid container are affected.
 
 ## Grid browser support
 
@@ -1112,15 +1234,50 @@ html {
 }
 ```
 
+## Grid Flow and Layout Modes
+
+- `implicit grid`: When we don't specify the engine what the rows and columns should be, and it come up with its own grid, based on the number of children.
+
+- By default each element in grid spans the entire width and height of its cell.
+- By default we wind up with a single column and `n` rows, where `n` is the number of children.
+
+## Grid auto flow
+
+- We can change the flow direction for implicit grids with the `grid-auto-flow` property. The default value is `row`.
+- When we change grid-auto-flow from row to column, we're not fundamentally changing the orientation of our grid; everything stays the same, except that our grid will have multiple columns instead of multiple rows.
+
+## Grid vs Flexbox
+
+- In Grid, there's no concept of `primary axis` or a `cross axis`.
+- Instead, Grid has `rows` and `columns`. The rows are always arranged along the `block axis` ( In English and other horizontal languages, this is the vertical axis).
+- Columns are always arranged along the "inline" axis ( In English and other horizontal languages, this is the horizontal axis).
+
+## Grid construction
+
+\_ We can explicitly define the grid by specifying the number of columns and/or rows.
+
+- `grid-template-columns`: Specify the columns.
+
+# `%!&^*#$%#^*#(*#_(#)_)(#) !(*&#*(&`
+
+# `^*&@^*&^#*&)*#&()#&(&#(*&_(#())))`
+
 ## Replaced elements
 
 - They're elements whose contents are not affected by the current document's styles.
 - The position of the replaced element can be affected using CSS, but not the contents of the replaced element itself.
 - Examples of replaced elements are img, iframe, video, embed.
 
+**Note**:
+
+- We can use `html` and `:root` interchangeably. It makes no difference.
+
+- `:root` refers to the top-level element in the DOM. In a properly-formed HTML document, this is always the `html` tag. And so `:root` is essentially an alias for html.
+- I prefer to use html because it feels like a pointless abstraction to me, but ultimately it's all the same thing.
+
 # Check
 
-- Specify height in a conatiner with min-height 100%.
+- Specify height in a container with min-height 100%.
 - Check if absolute positioned element is inline-block.
 - How to focus in storybook: document.querySelector(".sc-gKsewC fRZqK").focus();
 - Why color is not inherited in TextInput but inherited in Iconwrapper and Icon.
