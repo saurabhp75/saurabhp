@@ -1244,19 +1244,62 @@ p {
 ## Grid auto flow
 
 - We can change the flow direction for implicit grids with the `grid-auto-flow` property. The default value is `row`.
-- When we change grid-auto-flow from row to column, we're not fundamentally changing the orientation of our grid; everything stays the same, except that our grid will have multiple columns instead of multiple rows.
+- When we change `grid-auto-flow` from `row` to `column`, we're not fundamentally changing the orientation of our grid, everything stays the same, except that our grid will have multiple columns instead of multiple rows.
 
 ## Grid vs Flexbox
 
 - In Grid, there's no concept of `primary axis` or a `cross axis`.
 - Instead, Grid has `rows` and `columns`. The rows are always arranged along the `block axis` ( In English and other horizontal languages, this is the vertical axis).
-- Columns are always arranged along the "inline" axis ( In English and other horizontal languages, this is the horizontal axis).
+- Columns are always arranged along the `inline` axis ( In English and other horizontal languages, this is the horizontal axis).
 
 ## Grid construction
 
-\_ We can explicitly define the grid by specifying the number of columns and/or rows.
+- We can explicitly define the grid by specifying the number of columns and/or rows.
 
-- `grid-template-columns`: Specify the columns.
+- `grid-template-columns`: This property controls two things:
+  - The number of columns we want our grid to have
+  - The individual widths of each column
+- The columns specified using `px`, `rems`, and `percentages` are all `hard limits`.
+- The columns specified using `fr` are flexible and distributes the available space.
+
+## Implicit rows
+
+- Implicit rows are created automatically by grid engine to accomodate the children.
+- The height of implicit row is the height of the tallest child in that row.
+- The height of row grow and shrink as needed to accommodate the child element.
+
+## Explicit rows
+
+- Explicit rows have their heights specified.
+- `grid-template-rows: 64px 1fr 100px;`: Specifies 3 rows.
+
+## Out-of-bounds items
+
+- If grid has more children than the rows specified, then the browser creates a new row and squeeze it in.
+
+## Gaps
+
+- `gap: 8px 0px;`: 8px between rows and 0px between columns.
+
+## The “repeat” function
+
+- Mostly used with `fr` units but we can use any unit like px and rem etc.
+
+```css
+.calendar {
+  grid-template-columns: 250px 1fr 1fr 1fr 1fr 1fr;
+}
+.calendar {
+  grid-template-columns: 250px repeat(5, 1fr);
+}
+```
+
+## Grid alignment
+
+- `justify-content: start|end|center|stretch|space-around|space-between|space-evenly;`: Aligns the **grid columns**, `default` is `stretch`.
+- `justify-items: start|end|center|stretch;`: Aligns the items in the grid cell, `default` is `stretch`.
+- justify-content vs justify-items: Former applies to the grid structure, changing the columns. Latter applies to the child elements, without affecting the shape of the grid.
+- `align-content:start|end|center|stretch|space-around|space-between|space-evenly;`: Align the rows in a grid.
 
 # `%!&^*#$%#^*#(*#_(#)_)(#) !(*&#*(&`
 
