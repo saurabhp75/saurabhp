@@ -1296,10 +1296,222 @@ p {
 
 ## Grid alignment
 
-- `justify-content: start|end|center|stretch|space-around|space-between|space-evenly;`: Aligns the **grid columns**, `default` is `stretch`.
-- `justify-items: start|end|center|stretch;`: Aligns the items in the grid cell, `default` is `stretch`.
-- justify-content vs justify-items: Former applies to the grid structure, changing the columns. Latter applies to the child elements, without affecting the shape of the grid.
-- `align-content:start|end|center|stretch|space-around|space-between|space-evenly;`: Align the rows in a grid.
+- `justify-content`: start|end|center|stretch|space-around|space-between|space-evenly. Aligns the **grid columns**, `default` is `stretch`.
+- `justify-items`: start|end|center|stretch. Aligns the **itme's** position in the grid cell along the inline (row/horizontal) axis, `default` is `stretch`.
+- justify-content vs justify-items: Former applies to the **grid structure**, changing the columns. Latter applies to the **child elements**, without affecting the shape of the grid.
+- `align-content`: start|end|center|stretch|space-around|space-between|space-evenly. Align the **rows** in a grid.
+- `align-items`: start|end|center|stretch. Aligns the **item's** position along the block (column/vertical) axis within the row. `default` is `stretch`.
+- `align-self`: start | end | center | stretch. Aligns a **single** grid item inside a cell along the block (column) axis.
+- `justify-self`: start | end | center | stretch. Aligns a **single** grid item inside a cell along the inline (row) axis.
+
+## What to use and when
+
+- `Justify`: Align along `inline axis`.
+- `Align`: Align along `block axis`.
+- `Content`:
+- `Items`: Align the item within a column.
+
+## minmax function
+
+- `minmax(50px, 1fr)`: Specifies the minimum and maximum widths of the grid columns. `fr` can't be used as minimum for obvious reason.
+
+## auto-fill
+
+- `repeat(autofull, 150px)`: Fill the grid with as many 150px-wide columns as possible. This wil leave empty space if the leftover space is less than 150px.
+
+`repeat(auto-fill, minmax(150px, 1fr));`:
+
+- Figure out how many columns we can fit at the minimum acceptable size, 150px.
+- Scale up each column so that the entire horizontal space is filled
+
+## auto-fill vs. auto-fit
+
+- Suppose that we have space for 6 items, but we're only given 2 items. Should we create 4 extra empty columns, or should we stretch our two columns to be super wide, filling the available space?
+- This is the fundamental difference between `auto-fill` (lots of empty columns) and `auto-fit` (stretched ultra-wide columns).
+
+## Centering using grid
+
+```css
+.wrapper {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.wrapper {
+  display: grid;
+  place-content: center;
+}
+```
+
+## Sticky grids
+
+## Grid Quirks
+
+### Margin collapse
+
+- As in Flexbox, the margin on grid children won't collapse, in either direction.
+
+### Z-index works with grid children
+
+# 9: Animations
+
+## Transform(translate)
+
+- We can use `translate` to shift an element horizontaly or vertically.
+- Positive values move down and right, negative values move up and left.
+- Element's in-flow position doesn't change in any of the layout algorithms.
+- percentage refers to the element's own size, instead of the available space in the parent container. We can mix percentages with other values in `calc` function.
+
+```css
+transform: translate(0px, 0px);
+/* transform: translateY(20px);
+   transform: translateX(20px); */
+```
+
+## Transform(scale)
+
+```css
+transform: scale(0.95);
+transform: scale(1.55, 0.4);
+```
+
+## Transform(rotate)
+
+```css
+transform: rotate(122deg);
+transform: rotate(0.5turn);
+```
+
+## Transform(skew)
+
+```css
+transform: skew(0deg);
+transform: skewX(22deg);
+```
+
+## Transform (origin)
+
+- Every element has an origin, the anchor that the transform functions execute from.
+- The transform origin acts as a pivot point.
+
+```css
+transform: rotate(289deg);
+/*
+transform-origin: left top;
+transform-origin: center;
+transform-origin: 25px bottom;
+transform-origin: 0% 150%;
+*/
+```
+
+## Combining multiple operations
+
+- We can combine multiple transforms with `translate`, `scale`, `rotate`, `skew` and `origin`. The order is important as it can lead to different results.
+- The easiest fix is to switch it to use display: inline-block, or to use a different layout mode (eg. Flexbox or Grid).
+
+## Inline Elements
+
+- One common gotcha with transforms is that they don't work with `inline elements` in `Flow layout`.
+
+## CSS Transitions
+
+- Transition is highly configurable, but only two values are required:
+  - The name of the property we wish to animate
+  - The duration of the animation
+- We can animate multiple properties, by passing a comma-separated list
+- transition-property takes a special value: `all`. When all is specified, any CSS property that changes will be transitioned.
+
+```css
+.btn {
+  transition: transform 250ms, opacity 400ms;
+}
+
+.btn:hover {
+  transform: scale(1.2);
+  opacity: 0;
+}
+```
+
+## Timing functions
+
+- There are several timing functions available to us in CSS.
+- We can specify which one we want to use with the `transition-timing-function` property.
+
+```css
+.btn {
+  transition: transform 250ms;
+  transition-timing-function: linear;
+  /* transition: transform 250ms linear; */
+}
+```
+
+## Delays
+
+- The transition starts after a delay if provided.
+
+```css
+.dropdown {
+  opacity: 0;
+  transition: opacity 400ms;
+  transition-delay: 300ms;
+  /* Shortcut
+  transition: opacity 250ms 300ms; 
+  */
+}
+
+.dropdown-wrapper:hover .dropdown {
+  opacity: 1;
+  transition: opacity 100ms;
+  transition-delay: 0ms;
+}
+```
+
+Note: Hover listeners should be attached to interactive elements as it is desirable to have the focus effect join the hover effect.
+
+## Keyframe Animations
+
+- Keyframe animations are declared using the `@keyframes` at-rule.
+- We can specify a transition from one set of CSS declarations to another.
+- Each `@keyframes` statement needs a `name`.
+- Keyframe animations are meant to be general and reusable. We can apply them to specific selectors with the `animation` property. The `animation` property requires a duration just like `transistion` property.
+
+```css
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+```
+
+## Looped animations
+
+- By default, keyframe animations will only run once, but we can control this with the `animation-iteration-count` property.
+
+## Shorthand values for amimation property
+
+- The order of the values doen't matter for most part.
+- There is an exception: `animation-delay`, needs to come after the duration, since both properties take the same value type.
+
+```css
+.box {
+  /*
+  From this:
+    animation: grow-and-shrink 2000ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+  ...to this:
+  */
+  animation: grow-and-shrink 2000ms ease-in-out infinite alternate;
+}
+```
+
+## Fill Modes
 
 # `%!&^*#$%#^*#(*#_(#)_)(#) !(*&#*(&`
 
@@ -1324,3 +1536,7 @@ p {
 - Check if absolute positioned element is inline-block.
 - How to focus in storybook: document.querySelector(".sc-gKsewC fRZqK").focus();
 - Why color is not inherited in TextInput but inherited in Iconwrapper and Icon.
+
+```
+
+```
