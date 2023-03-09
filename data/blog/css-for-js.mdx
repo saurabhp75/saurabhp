@@ -1513,6 +1513,111 @@ Note: Hover listeners should be attached to interactive elements as it is desira
 
 ## Fill Modes
 
+```css
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+    opacity: 0.25;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+.box {
+  animation: slide-in 1000ms;
+  animation-delay: 500ms;
+  animation-fill-mode: backwards;
+}
+```
+
+- `animation-fill-mode`: forwards|backwards|both
+- `animation-delay: 500ms;`: We can specify a delay just like `transition`.
+
+## Dynamic Updates
+
+## Animations vs. transitions
+
+- There are some things that only @keyframes can do:
+  - Looped animations
+  - Multi-step animations
+  - pauseable animations
+- If an animation needs to run immediately when the page loads or the component mounts, it's easiest to use `@keyframes`.
+- Use `transition` when CSS will change as a result of some application state or user action. Use it when you want to smooth out an otherwise harsh transition between values.
+
+## keyframes and styled-components
+
+## Animation performance
+
+- In order for our brain to perceive motion as fluid and believable, it needs to run at 60 frames per second.
+- This leaves us with only ~16 milliseconds to update each frame.
+- Poor performance will often take the form of variable framerates.
+
+## The pixel pipeline
+
+- If we want to update the colors of the pixels on our screen, there's a pipeline of possible steps:
+
+  - `Recalculating style` — first, we need to figure out which CSS declarations apply to which elements.
+  - `Layout` — next, we need to figure out where each element sits on the page.
+  - `Paint` — once we know where everything is, we can start painting them. This is the process of figuring out which color every pixel should be (“rasterization”), and filling it in.
+  - `Compositing` — Finally, we can transform previously-painted elements.
+
+- Compositing lets the browser re-use the work done in previous frames.
+- It's best to try and avoid animating any properties that affect layout: this is things like `width`, `height`, `padding`, `margin`.
+
+- There are only two properties that can be animated with compositing alone: `transform` and `opacity`.
+
+## Action-Driven Animation
+
+- We can improve a modal animation by differentiating between enter and exit actions.
+
+## Orchestration
+
+- We can improve that animation even more by sequencing it.
+
+## Accessibility
+
+## Motion vs. Animation
+
+## 3D Transforms
+
+- We can rotate an element in 3D space.
+- `orthographic projection`: All objects drawn to the same scale.
+- `perspective projection`: Mimics how things appear in real life, where things vanish into the distance.
+- By default, the 3D engine in CSS will assume that we want to use `orthographic projection`.
+- We can switch to a perspective projection using the `perspective` CSS property.
+- We can choose a perspective value based on how attention-grabbing we want our animation to be.
+- `perspective` property needs to be set on the parent element.
+
+## Applying perspective
+
+- There are two different ways to apply perspective.
+  - First is with the `perspective` property.
+
+```css
+transform: rotateX(188deg);
+perspective: 250px;
+/* measure of how close the user
+  is to the screen */
+```
+
+## The perspective function
+
+- Unlike `perspective` property, the `perspective()` function will give each transformed element its own little environment.
+
+## Rendering Contexts
+
+`transform-style: preserve-3d`
+
+# 9: Little Big Details
+
+## CSS Filters
+
+- CSS filters allow us to leverage the ridiculous power of SVG filters from within CSS, wrapped up in a declarative, straightforward way.
+
+## Color Manipulation
+
 # `%!&^*#$%#^*#(*#_(#)_)(#) !(*&#*(&`
 
 # `^*&@^*&^#*&)*#&()#&(&#(*&_(#())))`
@@ -1536,7 +1641,3 @@ Note: Hover listeners should be attached to interactive elements as it is desira
 - Check if absolute positioned element is inline-block.
 - How to focus in storybook: document.querySelector(".sc-gKsewC fRZqK").focus();
 - Why color is not inherited in TextInput but inherited in Iconwrapper and Icon.
-
-```
-
-```
