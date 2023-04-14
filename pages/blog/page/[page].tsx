@@ -2,7 +2,7 @@ import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayout'
 import { allCoreContent } from '@/lib/utils/contentlayer'
-import { POSTS_PER_PAGE } from '../../blog'
+import { POSTS_PER_PAGE } from '../..'
 import { InferGetStaticPropsType } from 'next'
 import { allBlogs } from 'contentlayer/generated'
 

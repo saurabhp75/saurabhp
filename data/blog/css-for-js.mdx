@@ -10,7 +10,7 @@ summary: 'Introduction to CSS'
 
 ## CSS building blocks
 
-- `rule/style`: Collection of _declarations_ targetting on or more - selectors.
+- `rule/style`: Collection of _declarations_ targetting on or more `selectors`.
 - `declaration`: property + value
 - `selector`:
 - `property`:
@@ -23,11 +23,8 @@ summary: 'Introduction to CSS'
   padding: 32px; /* First Declaration */
   white-space: pre-wrap; /* Second Declaration */
 }
-
-/* 
-.code-snippet: selector
-padding: property
-*/
+/* code-snippet: selector
+   padding: property */
 ```
 
 ## media queries
@@ -52,17 +49,16 @@ padding: property
 
 ## Pseudo classes
 
-- `hover`: My name is Saurabh
+- `hover`:
 - `focus`:
   - Interactive elements like buttons, links, and form inputs.
   - When we interact interactive elements (either by clicking on it or tabbing to it), it becomes focused.
-- `checked`: Only applies to checkboxes and radio buttons.
+- `checked`: Only applies to `checkboxes` and `radio buttons`.
 - `first/last-child`: Match the first/last child within a parent container.
 - `first/last-of-type`: First/last type in the parent container. Represents the first/last element of its type among a group of `sibling` elements.
 
 ```css
-/* Target the last paragraph child 
-in a container */
+/* Target the last paragraph child in a container */
 p:last-child {
   margin-bottom: 0px;
 }
@@ -70,16 +66,16 @@ p:last-child {
 
 ## Pseudo elements
 
-- `::placeholder`: targets placeholder text in form input.
-- `::before/after`: These pseudo-elements are added inside the element, right before and after the element's content. `:: before and after` should not be used due to accessibility concerns.
+- `::placeholder`: Targets placeholder text in form input.
+- `::before/after`: These pseudo-elements are added inside the element, right before and after the element's content. `:: before/after` should not be used due to accessibility concerns.
 
 ## Pseudo classes vs pseudo elements
 
-- Pseudo classes targets specific state of an element.
+- Pseudo classes targets specific `state` of an element.
 - Pseudo classes use _1 colon_.
 - Pseudo elements targets _sub-elements_ within an element.
 - Pseudo elements use _2 colon_, though some also support one colon.
-- pseudo-elements selectors target elements in the DOM that aren't explicitly created with HTML tags.
+- Pseudo-elements selectors target elements in the DOM that aren't explicitly created with HTML tags.
 
 ## Children vs descendents
 
@@ -96,9 +92,9 @@ p:last-child {
 - `Hex codes`: For eg `#FF0000`.
 - `keyword`: for eg `red`.
 - `HSL(preferred)`: For eg `hsl(0deg, 100%, 50%)`
-  - `hue`: pigment type,
-  - `saturation`: pigment saturation,
-  - `lightness`: white to black
+  - `Hue`: pigment type,
+  - `Saturation`: pigment saturation,
+  - `Lightness`: white to black
 - `hsla`: Adds transparency. For eg `hsl(340deg 100% 50% / 0.75);`
 - `rgb`: For eg `rgb(255,0,0)`, gives opaque colors
 - `rgba`: Adds transparency, through alpha channel (0 to 1). 1 is opaque, 0 is transparent. For eg `rgba(255, 0, 0, 0.5);`
@@ -107,14 +103,15 @@ p:last-child {
 
 - `px`:
 - `em`: Not used much often. It compounds.
-- `rem`: relative to root element (html).font-size should be in rem. not px or em. if px then font scaling wont work.
+- `rem`: relative to root element (html). `font-size` should be in `rem` and not in `px` or `em`. If `px` is used then font scaling won't work.
 - `Percentage`: Often used with width/height, as a way to consume a portion of the **available space**.
 
-  **Note**: You shouldn't actually set a px font size on the html tag. This will override a user's chosen default font size.
-  The Web Content Accessibility Guidelines (WCAG) state that in order to be accessible, a site should be usable at 200% zoom.
-  TBD: If you really want to change the baseline font size for rem units, you can do that using percentages. Using px will mess up the font scaling.
+**Note**:
 
-1rem was equal to 16px? That's only true if the user hasn't touched their default font size!
+- You shouldn't actually set a `px` for `font-size` on the `html` tag. This will override a user's chosen default font size.
+- The Web Content Accessibility Guidelines (WCAG) state that in order to be accessible, a site should be usable at 200% zoom.
+- If you really want to change the baseline font size for rem units, you can do that using percentages. Using `px` will mess up the font scaling.
+- `1rem` was equal to 16px? That's only true if the user hasn't touched their default font size!
 
 ## Where to use rem or px
 
@@ -124,10 +121,12 @@ p:last-child {
 ## Browser zooming vs font scaling
 
 - Zooming affects everything except viewport units (like vw and vh).
+- Font scaling affects everything expressed in `rem` and `em`.
 
 ## Typography
 
-- `Font family`: collection of charcter sets for different `font weights` and `variants` (normal and italics).
+- We can change which font is used with the `font-family` property
+- `Font family`: Collection of charcter sets for different `font weights` and `variants` (normal and italics).
 - `Web safe fonts`: These are fonts that come pre-installed on all major operating systems, like `Arial`, `Times New Roman`, `Tahoma`.
 
 ## Font style/category
@@ -136,33 +135,33 @@ p:last-child {
 - `Serif`: Has adornment at the edge. Common in print media but not on web.
 - `Sans-serif`: Used on web, they don't have the adornments and don't look aged.
 - If we specify a category (serif, sans-serif), the OS will use its default font for that category.
-- For eg, if we specify `sans-serif`, Windows 11 will use ``Segoe UI`, while MacOS Ventura uses `SF Pro`.
+- For eg, if we specify `sans-serif`, Windows 11 will use `Segoe UI`, while MacOS Ventura uses `SF Pro`.
 - It is useful if we want our site/app to feel native to it splatform.
-- but in general, we want to have our own branding! We can do this with a `web font`.
+- But in general, we want to have our own branding! We can do this with a `web font`.
 
-## web fonts
+## Web fonts
 
 - It is a custom font that we load in our CSS, allowing us to use any font we like.
-- quotes are required for multiword fonts but as a convention it is used for web fonts. Font stack is specified for fallbacks.
+- Quotes are required for multiword fonts but as a convention it is used for web fonts. Font stack is specified for fallbacks.
 
 ```css
 /* notice the quote */
 font-family: 'Roboto', Arial, sans-serif;
 ```
 
-### font stack
+### Font stack
 
-- font-family: 'Roboto', Arial, sans-serif;
+- `font-family: 'Roboto', Arial, sans-serif;`
 - The idea is that the browser will use the first available font from the list.
 - If Roboto isn't available (eg. because the download failed, or it's simply taking too long), we'll use Arial instead. And if the user's device doesn't have Arial, it'll fall back to the system-default sans-serif font.
 
 ## Typical text formatting
 
-- Bold: Use `font-weight` property. The default/normal value for font weight is `400`, and the`bold` keyword maps to `700`.
-- Italic: font-style: italic;
-- Underlined text: text-decoration: underline|none;
+- **Bold text**: Use `font-weight` property. The default/normal value for font weight is `400`, and the`bold` keyword maps to `700`.
+- **Italic text**: `font-style: italic;`
+- **Underlined text**: `text-decoration: underline|none;`
 
-## styles and semantics
+## Styles and semantics
 
 - CSS change the cosmetic presentation of text, but it doesn't affect the semantic meaning of the markup.
 - For that, we need to use specialized HTML tags.
@@ -179,7 +178,7 @@ font-family: 'Roboto', Arial, sans-serif;
 
 ## Text transforms
 
-- text-transform: uppercase|capitalize;
+- `text-transform: uppercase|capitalize;`
 
 ## Spacing
 
@@ -191,7 +190,7 @@ font-family: 'Roboto', Arial, sans-serif;
 
 ## user-agent stylesheet
 
-- Each browser includes their own stylesheet. FOr eg anchor tag has underline and certain color and pointer.
+- Each browser includes their own stylesheet. For eg anchor tag has underline and certain color and pointer.
 
 ## Inheritance
 
@@ -208,8 +207,8 @@ font-family: 'Roboto', Arial, sans-serif;
 
 ## Specificity
 
-- Need to learn it by heart, modern tooling takes care of this.
-- In component based framework, the CCS is localised with the componenet.
+- No need to learn it by heart, modern tooling takes care of this.
+- In component based framework, the CSS is localised with the componenet.
 
 ```javascript
 const appliedStyles = {
@@ -227,11 +226,13 @@ const appliedStyles = {
 ## Logical properties
 
 - These are used because not all languages are left to right, top to bottom.
-- The main selling point for logical properties is internationalization.
-- margin-block-start: 1em;
-- margin-block-end: 1em;
-- margin-inline-start: 0px;
-- margin-inline-end: 0px;
+- The main selling point for logical properties is `internationalization`.
+- `Block direction` is like lego blocks: they stack together one on top of the other.
+- `Inline direction` is like people standing in-line, they stand side by side.
+- `margin-block-start: 1em;`
+- `margin-block-end: 1em;`
+- `margin-inline-start: 0px;`
+- `margin-inline-end: 0px;`
 
 ## Box model
 
@@ -244,10 +245,24 @@ const appliedStyles = {
 
 ## Box Sizing
 
+- `box-sizing: content-box;`: This is the browser default.
+- `box-sizing: border-box;`: This is more user freindly.
+
 ### Note
 
-The `default` value for the width property is `auto`. By default, for most elements,
-this means “automatically grow to fill as much space as possible”.
+The `default` value for the width property is `auto`. By default, for most `block` elements, this means _automatically grow to fill as much space as possible_.
+
+## Padding
+
+- Pixels(px) are the best unit to use for padding (and other box model properties like margin/border).
+
+## Shorthand properties
+
+- Applies to border, padding, margin, border-style/width/color etc.
+
+## Border
+
+- The only required field is border-style. Without it, no border will be shown.
 
 ## Flow Layout
 
@@ -1615,8 +1630,84 @@ perspective: 250px;
 ## CSS Filters
 
 - CSS filters allow us to leverage the ridiculous power of SVG filters from within CSS, wrapped up in a declarative, straightforward way.
+- They are applied mostly to `img` tag but work with any DOM node.
 
-## Color Manipulation
+## Color Manipulation using filters
+
+```css
+filter: brightness(150%);
+filter: contrast(60%);
+filter: sepia(100%);
+filter: contrast(200%) grayscale(90%);
+```
+
+## Hue rotation
+
+- It shifts the color of every pixel in the element.
+- `hue-rotate(60deg)`.
+
+## Blur Filter
+
+- It applies a Gaussian blur to the selected element.
+- We can apply `transition` to `filter` for more effect.
+- Blurring can be a very expensive operation, so apply with caution.
+- The blur filter leads to a soft, blurred edge. If you'd prefer a sharper edge, you can add `overflow: hidden` to the parent container.
+
+## Backdrop Filters
+
+- Applies to background behind the element.
+- `backdrop-filter: blur(10px);`
+- Can be used to obfuscate the content behind the sticky header.
+
+## Border Radius
+
+- Setting border-radius to `50%` converts element into ellipse.
+
+## Nested radius
+
+## Circular radius
+
+## Shadows
+
+- There are three main ways to apply shadows in CSS:
+  1. **box-shadow**
+  2. **text-shadow**
+  3. **filter: drop-shadow**
+
+## Box shadow
+
+- box-shadow is most commonly called with 4 arguments
+  - Horizontal offset
+  - Vertical offset
+  - Blur radius
+  - Color
+
+## filter: drop-shadow
+
+- The effect is similar to `box-shadow`, but it uses slightly different algorithm.
+- It produces a softer, more-blended shadow than `box-shadow`.
+
+## text-shadow
+
+- `text-shadow` applies only to the typography within the selected element.
+- One of the most common use cases for text-shadow is to increase the contrast between light-coloured text and a light background.
+
+## Contoured Shadows
+
+- If we `use filter: drop-shadow` on an image that supports transparency (eg. png, gif, svg), the shadow will apply to the non-transparent parts of the image. It **doesn't form a rectangle** around the layer itself.
+- When we apply filter: drop-shadow to an element, it contours that element and all of its **descendants**.
+- We can even apply filter: drop-shadow to a group of elements, to make sure we don't have any **shadow overlap** unlike `box-shadow`.
+- Sometimes, `filter: drop-shadow` produces some really funky effects in Safari.
+
+## Single-Sided Shadows
+
+- Using `box-shadow` we can create single sided shadows.
+- `drop-shadow` filter function cannot do this as it does not take `spread` argument.
+
+## Inset shadows
+
+- Inset shadows allow us to create the illusion that an element is lower than its surrounding environment.
+- We can achieve this by using `box-shadow` property with `inset` keyword`.
 
 # `%!&^*#$%#^*#(*#_(#)_)(#) !(*&#*(&`
 
